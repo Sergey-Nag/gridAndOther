@@ -1,11 +1,11 @@
-const main = document.querySelector('main');
+const grid = document.getElementById('grid');
 const main_block = document.getElementById('main-block');
+const items = document.getElementsByClassName('draggble');
+const main = document.querySelector('main');
 const grid_wrapp = document.querySelector('.grid_wrapp');
-const grid = document.querySelector('.grid');
 const V_grid = document.querySelector('.vertical_wrapp');
 const H_grid = document.querySelector('.horizontal_wrapp');
-const items = document.getElementsByClassName('draggble');
-var itemsArr = Array.from(items);
+const list_wrapp = document.querySelector('.list_wrapp');
 
 var blockHold = false;
 var hold = {
@@ -53,6 +53,11 @@ function createLine(type, i) {
 
   return line
 }
+var isMouseDown = false;
+var Mouse = {
+  x: 0,
+  y: 0
+}
 
 function isIn(event, block) {
   let m_x = event.pageX
@@ -79,17 +84,15 @@ function moveGrid(e) {
     main_block.scrollTop = hold.bY - distY
     main_block.scrollLeft = hold.bX - distX
   }
-
-
 }
 
 function isDrag(e, block) {
   let m_x = e.pageX
   let m_y = e.pageY
-  
-  let difX = m_x-drag.startX
-  let difY = m_y-drag.startY
-  
+
+  let difX = m_x - drag.startX
+  let difY = m_y - drag.startY
+
   if (difX > 2 || difY > 2) return true
   else false
 }
@@ -102,11 +105,17 @@ main_block.onmousedown = function (e) {
   hold.bY = main_block.scrollTop
 }
 
+var gridMousePoints = {
+  x: 0,
+  y: 0
+}
+
 main_block.onmouseup = function (e) {
   blockHold = false
   hold.x = 0
   hold.y = 0
 }
+
 main_block.onselectstart = function (e) {
   return false;
 }
@@ -121,25 +130,89 @@ window.onmousemove = function (e) {
     main.style.cursor = 'default'
     blockHold = false
   }
-
-  for (let i = 0; i < itemsArr.length; i++) {
-    if (isIn(e, itemsArr[i])) {
-      if (isDrag(e, itemsArr[i])) {
-        let item = itemsArr[i]
-        console.log('ues')
-      }
-    }
+  if (isIn(e, main_block)) {
+    Mouse.x = e.clientX+main_block.scrollLeft-main_block.offsetLeft;
+    Mouse.y = e.clientY+main_block.scrollTop-main_block.offsetTop;
   }
-
 }
-window.onmousedown = function (e) {
-  for (let i = 0; i < itemsArr.length; i++) {
-    if (isIn(e, itemsArr[i])) {
-      drag.check = true
-      drag.startX = e.pageX
-      drag.startY = e.pageY
-    }
+list_wrapp.onmousedown = function (e) {
+  return false;
+}
+
+function createItemAvatar(item) {
+  let avatar = item.cloneNode(true)
+  let color = item.classList.item(2) || false
+  avatar.classList.add('draggble');
+  avatar.classList.add('item');
+  if (color) avatar.classList.add(color);
+  avatar.style.width = item.offsetWidth + 'px';
+  avatar.style.cursor = 'move'
+  avatar.style.position = 'absolute'
+
+  return avatar
+}
+
+function onMouseDown(e, item) {
+  isMouseDown = true;
+
+  mouseOffset = {
+    x: item.offsetLeft - e.clientX,
+    y: item.offsetTop - e.clientY
   }
+  let avatar = createItemAvatar(item);
+  document.body.appendChild(avatar)
+  item.style.opacity = 0.7
+
+  avatar.onselectstart = function (e) {
+    return false;
+  }
+  document.body.addEventListener('mousemove', (e) => {
+    onMouseMove(e, avatar)
+  })
+
+  avatar.addEventListener('mouseup', (e) => {
+    onMouseUp(e, avatar, item)
+  })
+}
+
+function onMouseUp(e, avatar, parent) {
+  isMouseDown = false;
+
+  if (isIn(e, main_block)) {
+    let item = avatar.cloneNode(true)
+    grid.appendChild(item)
+    let posX = main_block.offsetLeft + (e.pageX - main_block.offsetLeft)
+    item.style.left = Mouse.x+avatar.offsetLeft-e.clientX+ 'px'
+    item.style.top = Mouse.y+avatar.offsetTop-e.clientY+ 'px'
+  }
+
+  document.body.removeChild(avatar)
+  parent.style.opacity = 1
+}
+
+
+function onMouseMove(e, item) {
+  e.preventDefault();
+  if (isMouseDown) {
+    item.style.left = e.clientX + mouseOffset.x + "px";
+    item.style.top = e.clientY + mouseOffset.y + "px";
+    main_block.style.boxShadow = '0 0 1px 2px rgba(24, 112, 255, 0.35)'
+    main_block.style.borderColor = 'rgba(24, 112, 255, 0.6)'
+
+  } else {
+    main_block.style.boxShadow = 'inset 0 1px 8px rgba(0, 0, 0, 0.2)'
+    main_block.style.borderColor = '#bfbfbf'
+  }
+}
+
+for (let i = 0; i < items.length; i++) {
+  let item = items[i];
+  let color = (item.classList.item(2)) ? '_' + item.classList.item(2) : ''
+  item.setAttribute('id', 'item_' + i + color)
+  item.addEventListener('mousedown', (e) => {
+    onMouseDown(e, item)
+  })
+
 }
 
 resizeMain()

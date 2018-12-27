@@ -1,0 +1,31 @@
+.theme {
+  outline: none;
+  border: none;
+  cursor: default;
+}
+
+.theme[type="button"] {
+  cursor: pointer;
+  background: #ffffff;
+  border-radius: 3px;
+  color: #474747;
+  font-weight: bold;
+  border: 1px solid #bfbfbf;
+  padding: 4px;
+}
+
+.theme[type="button"]:hover {
+  background: linear-gradient(to bottom, #f4f4f4, #e7e7e7);
+}
+.theme[type="button"]:active {
+  background: linear-gradient(to top, #f4f4f4, #e7e7e7);
+}
+
+label.theme {
+  font-size: .8em;
+  color: #5e5e5e;
+  padding: 7px;
+}
+label.theme[for] {
+  cursor: pointer;
+}
