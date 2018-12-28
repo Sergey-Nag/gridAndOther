@@ -69,7 +69,6 @@ main {
 }
 
 .item {
-  cursor: pointer;
   width: auto;
   margin-bottom: 10px;
   padding: 7px 5px;
@@ -80,9 +79,21 @@ main {
   z-index: 100;
 }
 
-.item:hover {
-  transform: translateY(-1px)
-    translateX(2px);
+.item.draggble {
+  cursor: pointer;
+}
+
+.item.avatar {
+  cursor: move;
+}
+
+.item.grid_draggble {
+  padding: 0px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.item.draggble:hover {
+  transform: translateY(-1px) translateX(2px);
   box-shadow: -2px 3px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -99,4 +110,21 @@ main {
 .item.blue {
   background: #84c2ff;
   border-color: #79b7f5;
+}
+
+.grid_item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2px;
+  grid-template-rows: 10px 15px;
+}
+
+.grid_item .col:first-child {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background: red
+}
+
+.grid_item .col {
+  background: green
 }
