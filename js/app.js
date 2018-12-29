@@ -98,7 +98,7 @@ function removeAvatar() {
 }
 
 function dropAvatarToGrid(e) {
-  let item = avatarFocus.cloneNode(true)
+  let item = avatarFocus.cloneNode(false)
 
   grid.appendChild(item)
 
@@ -107,8 +107,8 @@ function dropAvatarToGrid(e) {
 
   item.classList.add('grid_draggble')
   
-  let itemText = item.textContent
-  let gridInsert = createGridElement();
+  let type = avatarFocus.getAttribute('type')
+  let gridInsert = createGridElement(avatarFocus.textContent, type);
   item.appendChild(gridInsert)
   
   item.style.left = Mouse.x + avatarFocus.offsetLeft - e.clientX + 'px'
@@ -116,17 +116,38 @@ function dropAvatarToGrid(e) {
   removeAvatar()
 }
 
-function createGridElement() {
-  let grid = document.createElement('div');
+function createGridElement(text,type) {
+  let grid = DIV()
   grid.className = 'grid_item'
-  let col = document.createElement('div')
-  col.className = 'col'
+  grid.setAttribute('grid-type', type)
   
-  grid.appendChild(col,col,col)
-//  grid.appendChild(col)
-//  grid.appendChild(col)
+  let col1 = DIV()
+  col1.className = 'col'
+  col1.innerHTML = text
+  
+  let col2 = DIV()
+  col2.className = 'col'
+  
+  let col3 = DIV()
+  col3.className = 'col'
+  
+  if (type == 'incoming_data') {
+    let dataAdd = DIV()
+    dataAdd.className = 'data_load'
+    col2.appendChild(dataAdd)
+  } else if (type == 'min') {
+    
+  }
+  
+  grid.appendChild(col1)
+  grid.appendChild(col2)
+  grid.appendChild(col3)
   
   return grid
+}
+
+function DIV() {
+  return document.createElement('div')
 }
 
 /* Отжатие кнопки */

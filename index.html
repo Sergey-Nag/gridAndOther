@@ -1,26 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <link rel="stylesheet" href="theme.css">
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
-  
+
   <main>
     <div class="wrapper">
       <div class="block left_menu">
-       <div class="header_list">
-         <input class="theme add_butt" type="button" id="add"  value="add+"><label class="theme" for="add">Добавить элемент</label>
-       </div>
-        <div class="list_wrapp">
-          <div class="draggble item">hello world</div>
-          <div class="draggble item red">hello world</div>
-          <div class="draggble item green">hello world</div>
-          <div class="draggble item blue">hello world</div>
+        <div class="header_list">
+          <input class="theme add_butt" type="button" id="add" value="add+"><label class="theme" for="add">Добавить элемент</label>
         </div>
-        
+        <div class="list_wrapp">
+          <div class="cat_wrapp">
+            <div class="header_cat">
+              <div class="line_wrapp">
+                <div class="line"></div>
+              </div>
+              <h5>Events</h5><span class="arrow_down"></span>
+            </div>
+            <div class="content_cat">
+              <div class="draggble item" type="incoming_data"><span class="prefix">on</span> incoming data</div>
+              <div class="draggble item red" type="output_data"><span class="prefix">on</span> output data</div>
+              <div class="draggble item green">hello world</div>
+              <div class="draggble item blue">hello world</div>
+            </div>
+          </div>
+          <div class="cat_wrapp">
+            <div class="header_cat">
+              <div class="line_wrapp">
+                <div class="line"></div>
+              </div>
+              <h5>Create</h5><span class="arrow_down"></span>
+            </div>
+            <div class="content_cat">
+              <div class="grid_min_items">
+                <div class="draggble item min" type="min">Text</div>
+                <div class="draggble item min" type="min">Code</div>
+                <div class="draggble item min">File</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="block main_block" id="main-block">
         <div class="grid_wrapp">
@@ -34,8 +61,22 @@
       </div>
     </div>
   </main>
-  
-  <script src="grid.js"></script>
-  <script src="app.js"></script>
+
+  <script src="js/grid.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let catHead = document.getElementsByClassName('header_cat')
+
+    for (let i = 0; i < catHead.length; i++) {
+      catHead[i].onmouseup = function() {
+        let arrow = this.children[2]
+        let itemsWrapp = this.parentElement.children[1]
+        itemsWrapp.classList.toggle('hidden')
+        arrow.classList.toggle('up')
+      }
+    }
+
+  </script>
 </body>
+
 </html>
