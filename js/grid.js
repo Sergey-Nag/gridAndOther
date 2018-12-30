@@ -18,6 +18,58 @@ var Mouse = {
 }
 var blockHold = false;
 
+
+// Class
+class Lines {
+  constructor() {
+    this.x
+    this.y
+    this.linesX = []
+    this.linesY = []
+  }
+
+  add(dir, i) {
+    let arr = (dir == 'X') ? this.linesX : this.linesY;
+    let line = document.createElement('div');
+    line.classList.add('line');
+    line.setAttribute('id', dir + '-Line_' + i);
+    arr.push(line)
+    return line
+  }
+
+  search(x, y) {
+    return new Promise((res, rej) => {
+      x = Number.parseInt(x)
+      x = Number.parseInt(x)
+      
+      let checkX = 0
+      let searchX = []
+      for (let i = 0; i < this.linesX.length; i++) {
+        let el = this.linesX[i]
+        let X = el.offsetLeft
+        checkX++;
+        if (x >= X) searchX.push(el)
+      }
+
+      let checkY = 0
+      let searchY = []
+      for (let i = 0; i < this.linesY.length; i++) {
+        let el = this.linesY[i]
+        let Y = el.offsetTop
+        checkY++;
+        if (y >= Y) searchY.push(el)
+      }
+
+      if (checkX == this.linesX.length && checkY == this.linesY.length) res({
+        x: searchX[searchX.length - 1],
+        y: searchY[searchY.length - 1]
+      })
+    });
+  }
+}
+
+
+
 function isIn(event, block) {
   let m_x = event.pageX
   let m_y = event.pageY
@@ -50,8 +102,10 @@ function moveGrid(e) {
   }
 }
 
-function generateGrid() {
+// object
+var lines = new Lines()
 
+function generateGrid() {
   let W = H_grid.offsetWidth
   let H = V_grid.offsetHeight
 
@@ -59,11 +113,11 @@ function generateGrid() {
   let length_V_lines = W / 20
 
   for (let a = 0; a < length_V_lines; a++) {
-    let line = createLine('V', a);
+    let line = lines.add('X', a)
     V_grid.appendChild(line)
   }
   for (let b = 0; b < length_H_lines; b++) {
-    let line = createLine('H', b);
+    let line = lines.add('Y', b)
     H_grid.appendChild(line)
   }
 

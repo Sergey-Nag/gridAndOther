@@ -106,43 +106,55 @@ function dropAvatarToGrid(e) {
   item.classList.remove('draggble')
 
   item.classList.add('grid_draggble')
-  
+
   let type = avatarFocus.getAttribute('type')
   let gridInsert = createGridElement(avatarFocus.textContent, type);
   item.appendChild(gridInsert)
+
+  let search = lines.search(Mouse.x + avatarFocus.offsetLeft - e.clientX, Mouse.y + avatarFocus.offsetTop - e.clientY)
+  search.then((res) => {
+    let posX = res.x.offsetLeft + 4;
+    let posY = res.y.offsetTop + 2;
+    item.style.left = posX + 'px'
+    item.style.top = posY + 'px'
+  }).catch((err)=>{
+    
+    // Тут можно вставить блок расширения сетки
+    
+  })
   
-  item.style.left = Mouse.x + avatarFocus.offsetLeft - e.clientX + 'px'
-  item.style.top = Mouse.y + avatarFocus.offsetTop - e.clientY + 'px'
+//  item.style.left = Mouse.x + avatarFocus.offsetLeft - e.clientX + 'px'
+//  item.style.top = Mouse.y + avatarFocus.offsetTop - e.clientY + 'px'
   removeAvatar()
 }
 
-function createGridElement(text,type) {
+function createGridElement(text, type) {
   let grid = DIV()
   grid.className = 'grid_item'
   grid.setAttribute('grid-type', type)
-  
+
   let col1 = DIV()
   col1.className = 'col'
   col1.innerHTML = text
-  
+
   let col2 = DIV()
   col2.className = 'col'
-  
+
   let col3 = DIV()
   col3.className = 'col'
-  
+
   if (type == 'incoming_data') {
     let dataAdd = DIV()
     dataAdd.className = 'data_load'
     col2.appendChild(dataAdd)
   } else if (type == 'min') {
-    
+
   }
-  
+
   grid.appendChild(col1)
   grid.appendChild(col2)
   grid.appendChild(col3)
-  
+
   return grid
 }
 
@@ -162,11 +174,13 @@ document.onmousemove = function (e) {
     }
   }
 
+
   if (avatarCreated) {
     main_block.style.borderColor = '#3737ff'
     main_block.style.boxShadow = '0 0px 2px 3px rgba(89, 127, 255, 0.4)';
     avatarFocus.style.left = e.pageX + MousePositionInItem.x + 'px'
     avatarFocus.style.top = e.pageY + MousePositionInItem.y + 'px'
+
   } else {
     main_block.style.borderColor = '#bfbfbf';
     main_block.style.boxShadow = 'inset 0 1px 8px rgba(0, 0, 0, 0.2)';
