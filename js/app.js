@@ -26,6 +26,7 @@ var MousePositionInItem = {
   x: 0,
   y: 0
 }
+var itemsOnGrid = []
 
 list_wrapp.onmousedown = function (e) {
   return false;
@@ -112,20 +113,46 @@ function dropAvatarToGrid(e) {
   item.appendChild(gridInsert)
 
   let search = lines.search(Mouse.x + avatarFocus.offsetLeft - e.clientX, Mouse.y + avatarFocus.offsetTop - e.clientY)
+
+  let collisItem = checkCollisionItemsPositionFromGrid({
+    x: avatarFocus.offsetLeft,
+    y: avatarFocus.offsetTop,
+    height: avatarFocus.offsetHeight,
+    width: avatarFocus.offsetWidth
+  })
+  console.log(collisItem)
+
   search.then((res) => {
-    let posX = res.x.offsetLeft + 4;
+
+    let posX = res.x.offsetLeft + 3;
     let posY = res.y.offsetTop + 2;
     item.style.left = posX + 'px'
     item.style.top = posY + 'px'
-  }).catch((err)=>{
-    
+    itemsOnGrid.push(item)
+  }).catch((err) => {
     // Тут можно вставить блок расширения сетки
-    
+    console.log(err)
   })
-  
-//  item.style.left = Mouse.x + avatarFocus.offsetLeft - e.clientX + 'px'
-//  item.style.top = Mouse.y + avatarFocus.offsetTop - e.clientY + 'px'
+
+  //  item.style.left = Mouse.x + avatarFocus.offsetLeft - e.clientX + 'px'
+  //  item.style.top = Mouse.y + avatarFocus.offsetTop - e.clientY + 'px'
   removeAvatar()
+
+}
+
+// Проверка на соприкосновение элемента с item'ами на сетке
+function checkCollisionItemsPositionFromGrid(elem) {
+  return itemsOnGrid.filter((itm) => {
+
+    let itemX = itm.offsetLeft
+    let itemY = itm.offsetTop
+    let itemWidth = itm.offsetWidth
+    let itemHeight = itm.offsetHeight
+
+    if (elem.x >= itemX && elem.x + elem.width <= itemX + itemWidth || elem.y >= itemY && elem.y + elem.height <= itemY + itemHeight) {
+      return itm
+    }
+  })
 }
 
 function createGridElement(text, type) {
