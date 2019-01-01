@@ -73,6 +73,7 @@ function createAvatar(e, item) {
     avatar.style.width = widthNode + 'px';
     avatar.style.left = e.pageX + MousePositionInItem.x + 'px'
     avatar.style.top = e.pageY + MousePositionInItem.y + 'px'
+    avatar.style.opacity = .6
     document.body.appendChild(avatar)
 
     avatar.addEventListener('mouseup', function (e) {
@@ -106,7 +107,7 @@ function dropAvatarToGrid(e) {
 
   item.classList.remove('avatar')
   item.classList.remove('draggble')
-
+  item.style.opacity = 1;
   item.classList.add('grid_draggble')
 
   let type = avatarFocus.getAttribute('type')
@@ -116,14 +117,6 @@ function dropAvatarToGrid(e) {
   // Выравнивание по сетке
   let search = lines.search(Mouse.x + avatarFocus.offsetLeft - e.clientX, Mouse.y + avatarFocus.offsetTop - e.clientY)
 
-  let collisItem = checkCollisionItemsPositionFromGrid({
-    x: avatarFocus.offsetLeft,
-    y: avatarFocus.offsetTop,
-    height: avatarFocus.offsetHeight,
-    width: avatarFocus.offsetWidth
-  })
-
-  console.log(collisItem)
 
   search.then((res) => {
 
@@ -131,17 +124,6 @@ function dropAvatarToGrid(e) {
     let posY = res.y.offsetTop + 2;
     item.style.left = posX + 'px'
     item.style.top = posY + 'px'
-
-
-    itemsOnGrid.push({
-      location: {
-        x: posX,
-        y: posY,
-        x1: posX+item.offsetWidth,
-        y1: posY+item.offsetHeight
-      },
-      item
-    })
 
   }).catch((err) => {
     // Тут можно вставить блок расширения сетки
@@ -154,13 +136,7 @@ function dropAvatarToGrid(e) {
 
 }
 
-// Проверка на соприкосновение элемента с item'ами на сетке
-function checkCollisionItemsPositionFromGrid(elem) {
-  return itemsOnGrid.filter((itm) => {
-    let locat = itm.location
-    if (elem.x < locat.x) return itm.item
-  })
-}
+
 
 function createGridElement(text, type) {
   let grid = DIV()
@@ -214,7 +190,30 @@ document.onmousemove = function (e) {
     main_block.style.boxShadow = '0 0px 2px 3px rgba(89, 127, 255, 0.4)';
     avatarFocus.style.left = e.pageX + MousePositionInItem.x + 'px'
     avatarFocus.style.top = e.pageY + MousePositionInItem.y + 'px'
-
+    if (isIn(e, main_block)) {
+      if (!ghost) {
+        ghost = document.createElement('div')
+        ghost.id = 'GHOST'
+        let ghost_in = avatarFocus.cloneNode(false)
+        ghost_in.style.position = 'relative'
+        ghost_in.style.left = '0'
+        ghost_in.style.top = '0'
+        ghost_in.style.opacity = '0.4'
+        ghost_in.classList.add('grid_draggble')
+        ghost_in.appendChild(createGridElement('', avatarFocus.getAttribute('type')));
+        ghost.appendChild(ghost_in)
+        main_block.appendChild(ghost)
+      }
+      let search = lines.search(Mouse.x + avatarFocus.offsetLeft - e.clientX, Mouse.y + avatarFocus.offsetTop - e.clientY)
+      search.then((res) => {
+        console.log(ghost)
+        avatarFocus.style.opacity = 0
+        ghost.style.left = res.x.offsetLeft + 3 + 'px'
+        ghost.style.top = res.y.offsetTop + 2 + 'px'
+      }).catch((err) => {
+        lines.removeGhost()
+      })
+    } else avatarFocus.style.opacity = 1
   } else {
     main_block.style.borderColor = '#bfbfbf';
     main_block.style.boxShadow = 'inset 0 1px 8px rgba(0, 0, 0, 0.2)';
@@ -228,6 +227,11 @@ document.onmousedown = function (e) {
 
 document.onmouseup = function (e) {
   if (focus) onMouseUp(e, focus)
+
+  if (isIn(e, main_block) && ghost !== false) {
+    lines.removeGhost()
+  }
+
   //  if (avatarCreated) removeAvatar()
   //  return false;
 }

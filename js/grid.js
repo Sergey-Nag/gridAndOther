@@ -18,7 +18,7 @@ var Mouse = {
 }
 var blockHold = false;
 
-
+var ghost = false
 // Class
 class Lines {
   constructor() {
@@ -41,7 +41,7 @@ class Lines {
     return new Promise((res, rej) => {
       x = Number.parseInt(x)
       x = Number.parseInt(x)
-      
+
       let checkX = 0
       let searchX = []
       for (let i = 0; i < this.linesX.length; i++) {
@@ -65,6 +65,13 @@ class Lines {
         y: searchY[searchY.length - 1]
       })
     });
+  }
+
+  removeGhost() {
+    if (ghost) {
+      main_block.removeChild(document.getElementById('GHOST'))
+      ghost = false
+    }
   }
 }
 
