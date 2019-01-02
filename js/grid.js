@@ -14,10 +14,11 @@ var hold = {
 /* Позиция мыши в main_block */
 var Mouse = {
   x: 0,
-  y: 0
+  y: 0,
+  hold: false
 }
 var blockHold = false;
-
+var isGridMoving = false
 var ghost = false
 // Class
 class Lines {
@@ -161,12 +162,16 @@ window.onmousemove = function (e) {
   let insideMain = isIn(e, main_block);
 
 
-  if (insideMain && blockHold) {
+  if (!focusGridItem && insideMain && blockHold) {
     moveGrid(e)
+    isGridMoving = true
     main.style.cursor = 'grabbing'
   } else {
     main.style.cursor = 'default'
     blockHold = false
+    setTimeout(() => {
+      isGridMoving = false
+    }, 100)
   }
   if (isIn(e, main_block)) {
     Mouse.x = e.clientX + main_block.scrollLeft - main_block.offsetLeft;

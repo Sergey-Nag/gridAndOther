@@ -2,7 +2,7 @@ const items = document.getElementsByClassName('draggble');
 const list_wrapp = document.querySelector('.list_wrapp');
 
 var blockHold = false;
-
+var focusGridItem = false
 var drag = {
   check: false,
   startX: 0,
@@ -12,7 +12,11 @@ var MouseClick = {
   x: 0,
   y: 0
 }
-
+var myMouseEvent = {
+  x: 0,
+  y: 0,
+  hold: false
+}
 var focus = false
 var avatarFocus = false
 var avatarCreated = false
@@ -56,8 +60,6 @@ for (let i = 0; i < items.length; i++) {
 /* Нажатие кнопки */
 function onMouseDown(e, item) {
   focus = item
-  MouseTap.x = e.pageX
-  MouseTap.y = e.pageY
   MousePositionInItem.x = item.offsetLeft - e.clientX
   MousePositionInItem.y = item.offsetTop - e.clientY
 }
@@ -113,7 +115,13 @@ function dropAvatarToGrid(e) {
   let type = avatarFocus.getAttribute('type')
   let gridInsert = createGridElement(avatarFocus.textContent, type);
   item.appendChild(gridInsert)
-
+  item.addEventListener('click', (e) => {
+    if (e.which == 1 && isGridMoving == false) itemControl(e, item)
+    return false
+  })
+  item.addEventListener('mousedown', function (e) {
+    checkPosInBlock(e, item)
+  })
   // Выравнивание по сетке
   let search = lines.search(Mouse.x + avatarFocus.offsetLeft - e.clientX, Mouse.y + avatarFocus.offsetTop - e.clientY)
 
@@ -136,6 +144,26 @@ function dropAvatarToGrid(e) {
 
 }
 
+var focusGridItemTap = {
+  x: 0,
+  y: 0
+}
+var isMoveGridItem = false
+
+function checkPosInBlock(e, item) {
+  focusGridItemTap.x = item.offsetLeft + e.offsetX
+  focusGridItemTap.y = item.offsetTop - e.clientY
+}
+
+function itemControl(e, item) {
+  focusGridItem = item
+  item.classList.add('focus')
+}
+
+function removeFocusGridItem() {
+  focusGridItem.classList.remove('focus')
+  focusGridItem = false
+}
 
 
 function createGridElement(text, type) {
@@ -178,12 +206,13 @@ function onMouseUp(e, item) {
 }
 
 document.onmousemove = function (e) {
+  myMouseEvent.x = e.pageX
+  myMouseEvent.y = e.pageY
   if (focus) {
     if (vectorLength(MouseTap.x, MouseTap.y, e.pageX, e.pageY) > 5) {
       createAvatar(e, focus)
     }
   }
-
 
   if (avatarCreated) {
     main_block.style.borderColor = '#3737ff'
@@ -206,32 +235,61 @@ document.onmousemove = function (e) {
       }
       let search = lines.search(Mouse.x + avatarFocus.offsetLeft - e.clientX, Mouse.y + avatarFocus.offsetTop - e.clientY)
       search.then((res) => {
-        console.log(ghost)
         avatarFocus.style.opacity = 0
         ghost.style.left = res.x.offsetLeft + 3 + 'px'
         ghost.style.top = res.y.offsetTop + 2 + 'px'
       }).catch((err) => {
+        avatarFocus.style.opacity = 1
         lines.removeGhost()
       })
-    } else avatarFocus.style.opacity = 1
+    } else {
+      avatarFocus.style.opacity = 1
+      lines.removeGhost()
+    }
   } else {
     main_block.style.borderColor = '#bfbfbf';
     main_block.style.boxShadow = 'inset 0 1px 8px rgba(0, 0, 0, 0.2)';
   }
-  //  console.log(focus)
+
+  if (focusGridItem) {
+
+    if (e.target == focusGridItem.children[0].children[0]) {
+      if (myMouseEvent.hold) {
+        if (vectorLength(MouseTap.x, MouseTap.y, e.pageX, e.pageY) > 3) isMoveGridItem = true
+      } else isMoveGridItem = false
+    }
+
+    if (isMoveGridItem) {
+      console.log(focusGridItem.offsetLeft)
+      console.log(e.pageX - main_block.scrollLeft - main_block.offsetLeft)
+      console.log(focusGridItemTap)
+      focusGridItem.style.left = e.pageX - focusGridItemTap.x + 'px'
+      console.log('move')
+    }
+  } else {
+    isMoveGridItem = false
+  }
 }
 
 document.onmousedown = function (e) {
+  MouseTap.x = e.pageX
+  MouseTap.y = e.pageY
+
+  myMouseEvent.hold = true
+
   return false;
 }
 
 document.onmouseup = function (e) {
+  myMouseEvent.hold = false
   if (focus) onMouseUp(e, focus)
 
   if (isIn(e, main_block) && ghost !== false) {
     lines.removeGhost()
   }
-
+  if (focusGridItem) {
+    if (!isIn(e, focusGridItem)) removeFocusGridItem()
+  }
   //  if (avatarCreated) removeAvatar()
   //  return false;
 }

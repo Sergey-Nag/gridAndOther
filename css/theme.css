@@ -63,3 +63,18 @@ label.theme {
 label.theme[for] {
   cursor: pointer;
 }
+
+
+.main_block::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+.main_block::-webkit-scrollbar:hover, .main_block::-webkit-scrollbar:focus {
+  width: 5px;
+  height: 5px;
+}
+
+.main_block::-webkit-scrollbar-thumb {
+  background: #b4b4b4;
+}
