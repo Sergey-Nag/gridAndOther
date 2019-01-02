@@ -23,6 +23,10 @@ main {
   box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.3);
   overflow: scroll;
 }
+.main_b.highlight {
+  box-shadow: 0 0 1px 3px rgba(0, 69, 255, 0.3);
+  border-color: rgba(0, 69, 255, 0.8);
+}
 
 .line {
   position: relative;

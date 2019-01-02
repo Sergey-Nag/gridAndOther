@@ -8,6 +8,8 @@ const GRID = Doc.getElementById('grid');
 const MAIN_b = Doc.getElementsByClassName('main_b')[0];
 // class list_header
 const LIST_headers = Doc.getElementsByClassName('list_header');
+// items
+const ITEMS = Doc.getElementsByTagName('item');
 
 // Данные курсора мыши
 var Mouse = {

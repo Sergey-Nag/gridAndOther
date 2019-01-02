@@ -93,6 +93,12 @@ item.list_item:hover {
   box-shadow: 0 0 0 1px rgba(0, 0, 255, 0.5);
 }
 
+item.list_item.avatar {
+  position: absolute;
+  cursor: move;
+  box-shadow: 0 3px 2px 1px rgba(0, 0, 0, 0.3);
+}
+
 
 item[type="full"] {
   margin-bottom: 8px;

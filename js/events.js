@@ -1,5 +1,6 @@
 resizeMain() // Размер окна
 drawLines() // Отрисовка сетки
+eventToItems() // Обработчики нажатия по item'ам
 eventsToListHeaders() // Скрытие & Раскрытие списков item'ов
 
 /*------------------- MOUSE DOWN ------------------*/
@@ -27,7 +28,8 @@ Doc.onmousemove = (e) => {
     Doc.body.style.cursor = 'grabbing'
   } else Doc.body.style.cursor = 'default'
   
-  if (Mouse.down) drag_n_drop() // Перемещение item'ов из списка
+  if (Mouse.down && Avatar.focus) moveAvatar()
+  else removeAvatar()
   //  console.log(vectorLength(Mouse.tapX, Mouse.tapY, Mouse.x, Mouse.y))
 }
 
