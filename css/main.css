@@ -11,9 +11,12 @@ main {
   grid-template-rows: 100%;
   grid-column-gap: 10px;
 }
+
 .left_b {
   padding: 10px;
+  overflow-y: scroll;
 }
+
 .block {
   border: solid 1px #cdcdcd;
   border-radius: 4px;
@@ -23,6 +26,7 @@ main {
   box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.3);
   overflow: scroll;
 }
+
 .main_b.highlight {
   box-shadow: 0 0 1px 3px rgba(0, 69, 255, 0.3);
   border-color: rgba(0, 69, 255, 0.8);
@@ -84,11 +88,13 @@ main {
   width: 100%;
   padding: 5px 15px 6px 0;
 }
+
 .line_header {
   height: 1px;
   background: #8e8e8e;
   width: inherit;
 }
+
 .list_header h5 {
   font-weight: normal;
   float: left;
@@ -108,28 +114,33 @@ main {
   border-bottom: solid 1px #8e8e8e;
   transform: rotate(45deg);
 }
+
 .arrow_down.up {
   transform: rotate(-135deg);
   margin-top: -8px;
 }
 
-.list_header:hover .line_h_wrapp, .list_header:hover h5{
-  background: #efefef;  
+.list_header:hover .line_h_wrapp,
+.list_header:hover h5 {
+  background: #efefef;
 }
 
 .list_items {
   display: block;
   padding-top: 5px;
 }
+
 .list_items.min {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 5px;
   margin-bottom: 10px;
 }
-.list_items.min item{
+
+.list_items.min item {
   font-size: .85em;
 }
+
 .list_items.hidden {
   display: none;
 }

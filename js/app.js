@@ -5,9 +5,31 @@ function eventsToListHeaders() {
     LIST_headers[i].onmouseup = function () {
       let arrow = this.children[2]
       let itemsWrapp = this.parentElement.children[1]
-      itemsWrapp.classList.toggle('hidden')
-      arrow.classList.toggle('up')
+      let storage = localStorage.getItem('List-of-items-' + LIST_headers[i].children[1].textContent)
+      
+      if (itemsWrapp.classList.contains('hidden')) {
+        storage = 'true'
+      } else storage='false'
+      
+      localStorage.setItem('List-of-items-' + LIST_headers[i].children[1].textContent, storage)
+      toggleList()
     }
+  }
+}
+
+function toggleList() {
+  for (let i = 0; i < LIST_headers.length; i++) {
+    let isHidden = localStorage.getItem('List-of-items-' + LIST_headers[i].children[1].textContent)
+    let arrow = LIST_headers[i].children[2]
+    let itemsWrapp = LIST_headers[i].parentElement.children[1]
+    if (isHidden == 'false') {
+      itemsWrapp.classList.add('hidden')
+      arrow.classList.add('up')
+    } else {
+      itemsWrapp.classList.remove('hidden')
+      arrow.classList.remove('up')
+    }
+
   }
 }
 // События на item'ы
@@ -29,8 +51,6 @@ function drag_n_drop(e) {
     if (Mouse.holdVector() > 2) {
       Avatar.focus = createAvatar()
     }
-  } else {
-    removeAvatar()
   }
 }
 

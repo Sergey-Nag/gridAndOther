@@ -112,15 +112,17 @@ item[type="min"] {
 item[data-method]::after {
   content: attr(data-method);
   font-size: .95em;
-  margin-left: 6px;
   font-weight: normal;
 }
-
-item.list_item:not([data-method="incoming_data"])::after {
-  margin: 0px;
+item[pfx]::before {
+  content: attr(pfx);
+  margin-right: 4px;
+  font-size: .8em;
+  font-weight: 800;
 }
 
-/* ---------- COLORS ---------- */
+
+/* ---------- ---------- ---------- COLORS ---------- ---------- ---------- */
 item.list_item[data-method="incoming_data"] {
   border-color: #9f9f9f;
   background-color: #f2f2f2;
@@ -146,24 +148,65 @@ item.list_item[data-method="While"] {
   background-color: #b4d2f2;
 }
 
-
-item.list_item[data-method="incoming_data"]::before {
-  content: 'on';
-  font-size: .8em;
-  font-weight: 800;
+item.list_item[data-method="Date"] {
+  border-color: #78c5db;
+  background-color: #b4e4f2;
 }
 
-.main_b::-webkit-scrollbar {
+item.list_item[data-method="Timeout"] {
+  border-color: #5edbd1;
+  background-color: #b4f2ed;
+}
+
+item.list_item[data-method="Interval"] {
+  border-color: #8edfc0;
+  background-color: #b4f2da;
+}
+
+item.list_item[data-method="Data"] {
+  border-color: #88db99;
+  background-color: #a6f2b4;
+}
+
+item.list_item[data-method="User"] {
+  border-color: #9de388;
+  background-color: #bbfaa8;
+}
+
+item.list_item[data-method="Promise"] {
+  border-color: #c5e884;
+  background-color: #deffa0;
+}
+
+item.list_item[data-method=".length"] {
+  border-color: #e0ec7b;
+  background-color: #f5ffa0;
+}
+
+item.list_item[for="string"] {
+  border-color: #e0ec7b;
+  background-color: #f5ffa0;
+}
+
+
+
+/* ---------- ---------- ---------- end COLORS ---------- ---------- ---------- */
+
+.main_b::-webkit-scrollbar,
+.left_b::-webkit-scrollbar {
   width: 2px;
   height: 2px;
 }
 
 .main_b::-webkit-scrollbar:hover,
-.main_b::-webkit-scrollbar:focus {
+.main_b::-webkit-scrollbar:focus,
+.left_b::-webkit-scrollbar:hover,
+.left_b::-webkit-scrollbar:focus {
   width: 5px;
   height: 5px;
 }
 
-.main_b::-webkit-scrollbar-thumb {
+.main_b::-webkit-scrollbar-thumb,
+.left_b::-webkit-scrollbar-thumb {
   background: #828282;
 }

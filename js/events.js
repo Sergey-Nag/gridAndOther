@@ -2,6 +2,7 @@ resizeMain() // Размер окна
 drawLines() // Отрисовка сетки
 eventToItems() // Обработчики нажатия по item'ам
 eventsToListHeaders() // Скрытие & Раскрытие списков item'ов
+toggleList() // Скрытие & Раскрытие списков item'ов при запуске
 
 /*------------------- MOUSE DOWN ------------------*/
 Doc.onmousedown = (e) => {
