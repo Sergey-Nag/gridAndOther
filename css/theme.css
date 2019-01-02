@@ -25,6 +25,16 @@
   font-weight: 800;
 }
 
+* {
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+}
+
 body {
   font-family: "InputMono", sans-serif;
   font-weight: 500;
@@ -65,16 +75,16 @@ label.theme[for] {
 }
 
 
-.main_block::-webkit-scrollbar {
+.main_b::-webkit-scrollbar {
   width: 2px;
   height: 2px;
 }
 
-.main_block::-webkit-scrollbar:hover, .main_block::-webkit-scrollbar:focus {
+.main_b::-webkit-scrollbar:hover, .main_b::-webkit-scrollbar:focus {
   width: 5px;
   height: 5px;
 }
 
-.main_block::-webkit-scrollbar-thumb {
-  background: #b4b4b4;
+.main_b::-webkit-scrollbar-thumb {
+  background: #828282;
 }

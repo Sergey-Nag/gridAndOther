@@ -1,83 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>APP</title>
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/main.css">
 </head>
-
 <body>
-
+  
   <main>
-    <div class="wrapper">
-      <div class="block left_menu">
-        <div class="header_list">
-          <input class="theme add_butt" type="button" id="add" value="add+"><label class="theme" for="add">Добавить элемент</label>
+    <div class="app_wrapp">
+      <div class="left_b block">
+        <div class="list_wrapp">
+          <div class="list_header">
+            <div class="line_h_wrapp">
+              <div class="line_header"></div>
+            </div>
+            <h5>Events</h5>
+          </div>
+          <div class="list_items"></div>
         </div>
         <div class="list_wrapp">
-          <div class="cat_wrapp">
-            <div class="header_cat">
-              <div class="line_wrapp">
-                <div class="line"></div>
-              </div>
-              <h5>Events</h5><span class="arrow_down"></span>
-            </div>
-            <div class="content_cat">
-              <div class="draggble item" type="incoming_data"><span class="prefix">on</span> incoming data</div>
-              <div class="draggble item red" type="message"><span class="prefix">on</span> message</div>
-              <div class="draggble item green">Load</div>
-              <div class="draggble item blue">hello world</div>
-            </div>
-          </div>
-          <div class="cat_wrapp">
-            <div class="header_cat">
-              <div class="line_wrapp">
-                <div class="line"></div>
-              </div>
-              <h5>Create</h5><span class="arrow_down"></span>
-            </div>
-            <div class="content_cat">
-              <div class="grid_min_items">
-                <div class="draggble item min" type="min">String</div>
-                <div class="draggble item min" type="min">Bool</div>
-                <div class="draggble item min" type="min">Object</div>
-                <div class="draggble item min" type="min">Array</div>
-              </div>
-            </div>
-          </div>
+          <div class="list_header"></div>
+          <div class="list_items"></div>
         </div>
-
       </div>
-      <div class="block main_block" id="main-block">
-        <div class="grid_wrapp">
-          <div class="grid" id="grid">
-            <div class="horizontal_wrapp">
-            </div>
-            <div class="vertical_wrapp">
-            </div>
+      <div class="main_b block">
+        <div class="grid" id="grid">
+          <div class="X_lines"></div>
+          <div class="Y_lines"></div>
+          <div class="grid_items">
+            ss
           </div>
         </div>
       </div>
     </div>
   </main>
-
+  
+  
+  <script src="js/vars.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/app.js"></script>
-  <script>
-    let catHead = document.getElementsByClassName('header_cat')
-
-    for (let i = 0; i < catHead.length; i++) {
-      catHead[i].onmouseup = function() {
-        let arrow = this.children[2]
-        let itemsWrapp = this.parentElement.children[1]
-        itemsWrapp.classList.toggle('hidden')
-        arrow.classList.toggle('up')
-      }
-    }
-
-  </script>
+  <script src="js/events.js"></script>
 </body>
-
 </html>
