@@ -1,6 +1,6 @@
 resizeMain() // Размер окна
 drawLines() // Отрисовка сетки
-
+eventsToListHeaders() // Скрытие & Раскрытие списков item'ов
 
 /*------------------- MOUSE DOWN ------------------*/
 Doc.onmousedown = (e) => {
@@ -8,14 +8,11 @@ Doc.onmousedown = (e) => {
   Mouse.tapX = e.pageX
   Mouse.tapY = e.pageY
 
-  //  console.log(Mouse.isIn(GRID))
-
   return false
 }
 GRID.onmousedown = (e) => {
   GridMouse.SX = MAIN_b.scrollLeft
   GridMouse.SY = MAIN_b.scrollTop
-  //  GridMouse.x = e.clientX
   GridMouse.down = true
 }
 
@@ -29,6 +26,8 @@ Doc.onmousemove = (e) => {
     moveGrid()
     Doc.body.style.cursor = 'grabbing'
   } else Doc.body.style.cursor = 'default'
+  
+  if (Mouse.down) drag_n_drop() // Перемещение item'ов из списка
   //  console.log(vectorLength(Mouse.tapX, Mouse.tapY, Mouse.x, Mouse.y))
 }
 

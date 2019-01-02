@@ -6,6 +6,8 @@ const MAIN = Doc.querySelector('main');
 const GRID = Doc.getElementById('grid');
 // class main_b
 const MAIN_b = Doc.getElementsByClassName('main_b')[0];
+// class list_header
+const LIST_headers = Doc.getElementsByClassName('list_header');
 
 // Данные курсора мыши
 var Mouse = {
@@ -23,6 +25,9 @@ var Mouse = {
     
     if (Mouse.x >= b_X && Mouse.x <= b_X1 && Mouse.y >= b_Y && Mouse.y <= b_Y1) return true
     else return false
+  },
+  holdVector: ()=>{
+    return vectorLength(Mouse.tapX, Mouse.tapY, Mouse.x, Mouse.y)
   }
 }
 
@@ -33,6 +38,13 @@ var GridMouse = {
   down: false
 }
 
+// Аватар элемнта списка при Drag&Drop
+var Avatar = {
+  created:false,
+  focus:false,
+  difX:0,
+  difY:0
+}
 
 // Класс сетки
 class Constr_Lines {

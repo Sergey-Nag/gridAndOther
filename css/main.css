@@ -11,7 +11,9 @@ main {
   grid-template-rows: 100%;
   grid-column-gap: 10px;
 }
-
+.left_b {
+  padding: 10px;
+}
 .block {
   border: solid 1px #cdcdcd;
   border-radius: 4px;
@@ -71,16 +73,16 @@ main {
 .list_wrapp {
   float: left;
   width: 100%;
-  padding: 10px;
+  margin-bottom: 5px;
 }
 
 .line_h_wrapp {
   width: 100%;
-  padding: 5px 0 6px;
+  padding: 5px 15px 6px 0;
 }
 .line_header {
   height: 1px;
-  background: #d1d1d1;
+  background: #8e8e8e;
   width: inherit;
 }
 .list_header h5 {
@@ -91,6 +93,39 @@ main {
   margin-left: 10px;
   background: white;
 }
+
+.arrow_down {
+  float: right;
+  width: 8px;
+  height: 8px;
+  margin-top: -12px;
+  margin-right: 2px;
+  border-right: solid 1px #8e8e8e;
+  border-bottom: solid 1px #8e8e8e;
+  transform: rotate(45deg);
+}
+.arrow_down.up {
+  transform: rotate(-135deg);
+  margin-top: -8px;
+}
+
 .list_header:hover .line_h_wrapp, .list_header:hover h5{
   background: #efefef;  
+}
+
+.list_items {
+  display: block;
+  padding-top: 5px;
+}
+.list_items.min {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+  margin-bottom: 10px;
+}
+.list_items.min item{
+  font-size: .85em;
+}
+.list_items.hidden {
+  display: none;
 }

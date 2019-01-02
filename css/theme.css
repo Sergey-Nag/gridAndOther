@@ -26,8 +26,8 @@
 }
 
 * {
-  margin: 0; 
-  padding: 0; 
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -75,12 +75,85 @@ label.theme[for] {
 }
 
 
+
+item {
+  display: block;
+  width: 100%;
+  padding: 5px;
+}
+
+item.list_item {
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+}
+
+item.list_item:hover {
+  box-shadow: 0 0 0 1px rgba(0, 0, 255, 0.5);
+}
+
+
+item[type="full"] {
+  margin-bottom: 8px;
+}
+
+item[type="min"] {
+  margin-bottom: 0px;
+  background: white;
+}
+
+item[data-method]::after {
+  content: attr(data-method);
+  font-size: .95em;
+  margin-left: 6px;
+  font-weight: normal;
+}
+
+item.list_item:not([data-method="incoming_data"])::after {
+  margin: 0px;
+}
+
+/* ---------- COLORS ---------- */
+item.list_item[data-method="incoming_data"] {
+  border-color: #9f9f9f;
+  background-color: #f2f2f2;
+}
+
+item.list_item[data-method="If"] {
+  border-color: #b08beb;
+  background-color: #ddc5ff;
+}
+
+item.list_item[data-method="If-Else"] {
+  border-color: #c78beb;
+  background-color: #f2c5ff;
+}
+
+item.list_item[data-method="For"] {
+  border-color: #9fa6fa;
+  background-color: #ccd0ff;
+}
+
+item.list_item[data-method="While"] {
+  border-color: #85b0e7;
+  background-color: #b4d2f2;
+}
+
+
+item.list_item[data-method="incoming_data"]::before {
+  content: 'on';
+  font-size: .8em;
+  font-weight: 800;
+}
+
 .main_b::-webkit-scrollbar {
   width: 2px;
   height: 2px;
 }
 
-.main_b::-webkit-scrollbar:hover, .main_b::-webkit-scrollbar:focus {
+.main_b::-webkit-scrollbar:hover,
+.main_b::-webkit-scrollbar:focus {
   width: 5px;
   height: 5px;
 }
