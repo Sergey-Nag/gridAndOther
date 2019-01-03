@@ -80,7 +80,7 @@ class Constr_Lines {
         let lineX1 = lineX + this.linesX[i].offsetWidth
 
         if (x >= lineX && x <= lineX1) {
-          matchXLine = this.linesX[i]          
+          matchXLine = this.linesX[i]
           posX = lineX
         }
         amountX++
@@ -102,9 +102,9 @@ class Constr_Lines {
 
       if (amountX == this.linesX.length && amountY == this.linesY.length) {
         let obj = {
-//          lineX: matchXLine,
+          //          lineX: matchXLine,
           posX,
-//          lineY: matchYLine,
+          //          lineY: matchYLine,
           posY
         }
         if (matchXLine && matchYLine) res(obj)
@@ -116,7 +116,52 @@ class Constr_Lines {
 // Объект сетки
 var Lines = new Constr_Lines();
 
+// Класс Grid
+class Grid_Items {
+  constructor() {
+    this.map = []
+    this.items = []
+    this.lastIndex = 0
+    this.config = {
+      var_string: {
+        type: 'variable',
+        data_type: 'string'
+      },
+      var_number: {
+        type: 'variable',
+        data_type: 'number'
+      }
+    }
+  }
 
+  add(itm) {
+    if (itm) {
+      let conf = this.config[itm.id]
+      if (conf !== undefined) {
+        // get position
+        let posX = Avatar.grid.offsetLeft
+        let posY = Avatar.grid.offsetTop
+        // clone
+        itm = itm.cloneNode(true)
+        // push
+        let item = this.items.push(itm)
+        // toggle classes
+        itm.classList.remove('hidden', 'avatar')
+        itm.classList.add('grid_draggble')
+        // set position
+        itm.style.left = posX -3 + 'px'
+        itm.style.top = posY +2+ 'px'
+        // returning ready item
+        return itm
+      } else {
+        console.warn(itm.id, '- not found in config')
+      }
+    }
+    return false
+  }
+}
+// Объект Grid
+var GridItems = new Grid_Items()
 
 
 /*--------------- DEFAULT FUNCTIONS --------------*/

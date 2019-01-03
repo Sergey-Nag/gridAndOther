@@ -98,14 +98,20 @@ item.list_item.avatar {
   cursor: move;
   box-shadow: 0 3px 2px 1px rgba(0, 0, 0, 0.3);
 }
+
 item.list_item.avatar.hidden {
   opacity: 0;
 }
+
 item.list_item.grid_ghost {
   position: absolute;
   opacity: .6;
   cursor: move;
   box-shadow: -3px 2px 1px 1px rgba(0, 0, 0, 0.3);
+}
+item.list_item.grid_draggble {
+  position: absolute;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
 

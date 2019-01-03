@@ -29,8 +29,14 @@ Doc.onmousemove = (e) => {
     Doc.body.style.cursor = 'grabbing'
   } else Doc.body.style.cursor = 'default'
 
-  if (Mouse.down && Avatar.focus) moveAvatar()
-  else removeAvatar()
+  if (Mouse.down && Avatar.focus) {
+    moveAvatar()
+  } else {
+    if (Mouse.isIn(MAIN_b)) {
+      dropItemToGrid()
+    }
+    removeAvatar()
+  }
   //  console.log(vectorLength(Mouse.tapX, Mouse.tapY, Mouse.x, Mouse.y))
 }
 

@@ -64,14 +64,23 @@ function moveAvatar() {
 
     search.then((res) => {
       createAvatarGrid()
-      Avatar.grid.style.left = res.posX +7+ 'px'
-      Avatar.grid.style.top = res.posY +1+ 'px'
+      Avatar.grid.style.left = res.posX + 7 + 'px'
+      Avatar.grid.style.top = res.posY + 1 + 'px'
+
     }).catch((rej) => {
       Avatar.focus.classList.remove('hidden')
       removeGridGhost()
     })
   } else {
     Avatar.focus.classList.remove('hidden')
+  }
+}
+
+/* Установить item на сетку */
+function dropItemToGrid() {
+  let item = GridItems.add(Avatar.focus)
+  if (item) {
+    GRID.appendChild(item)
   }
 }
 
@@ -101,7 +110,7 @@ function createAvatarGrid() {
 
     gridAv.classList.remove('draggble', 'avatar')
     gridAv.classList.add('grid_draggble', 'grid_ghost')
-    //    gridAv.appendChild(insertDataGridInItem(Avatar.focus, false))
+    gridAv.appendChild(insertDataGridInItem(Avatar.focus, false))
     GRID.appendChild(gridAv)
     Avatar.grid = gridAv
   }
@@ -129,7 +138,7 @@ function removeAvatar() {
     MAIN_b.classList.remove('highlight')
     Avatar.created = false
     Avatar.focus = false
-        removeGridGhost()
+    removeGridGhost()
   }
 }
 
