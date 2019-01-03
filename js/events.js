@@ -3,13 +3,13 @@ drawLines() // Отрисовка сетки
 eventToItems() // Обработчики нажатия по item'ам
 eventsToListHeaders() // Скрытие & Раскрытие списков item'ов
 toggleList() // Скрытие & Раскрытие списков item'ов при запуске
+scrollGridToCenter() // Скролл на центр сетки
 
 /*------------------- MOUSE DOWN ------------------*/
 Doc.onmousedown = (e) => {
   Mouse.down = true
   Mouse.tapX = e.pageX
   Mouse.tapY = e.pageY
-
   return false
 }
 GRID.onmousedown = (e) => {
@@ -28,7 +28,7 @@ Doc.onmousemove = (e) => {
     moveGrid()
     Doc.body.style.cursor = 'grabbing'
   } else Doc.body.style.cursor = 'default'
-  
+
   if (Mouse.down && Avatar.focus) moveAvatar()
   else removeAvatar()
   //  console.log(vectorLength(Mouse.tapX, Mouse.tapY, Mouse.x, Mouse.y))
@@ -39,7 +39,6 @@ Doc.onmouseup = (e) => {
   Mouse.tapX = 0
   Mouse.tapY = 0
   GridMouse.down = false
-
   Mouse.down = false
 }
 

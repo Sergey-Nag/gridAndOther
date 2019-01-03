@@ -23,3 +23,16 @@ function moveGrid() {
   MAIN_b.scrollLeft = GridMouse.SX - distX
   MAIN_b.scrollTop = GridMouse.SY - distY
 }
+
+function scrollGridToCenter() {
+  let height = GRID.offsetHeight
+  let width = GRID.offsetWidth
+  
+  let x = GRID.offsetLeft
+  let y = GRID.offsetTop
+  
+  let x1 = x+width
+  let y1 = y+height
+  MAIN_b.scrollTop = height/2-MAIN_b.offsetHeight/2
+  MAIN_b.scrollLeft = width/2-MAIN_b.offsetWidth/2
+}

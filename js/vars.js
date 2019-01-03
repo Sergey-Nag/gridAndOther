@@ -19,16 +19,16 @@ var Mouse = {
   tapY: 0,
   down: false,
   target: false,
-  isIn: function(block) {
+  isIn: function (block) {
     let b_X = block.offsetLeft,
-        b_Y = block.offsetTop,
-        b_X1 = b_X + block.offsetWidth,
-        b_Y1 = b_Y + block.offsetHeight;
-    
+      b_Y = block.offsetTop,
+      b_X1 = b_X + block.offsetWidth,
+      b_Y1 = b_Y + block.offsetHeight;
+
     if (Mouse.x >= b_X && Mouse.x <= b_X1 && Mouse.y >= b_Y && Mouse.y <= b_Y1) return true
     else return false
   },
-  holdVector: ()=>{
+  holdVector: () => {
     return vectorLength(Mouse.tapX, Mouse.tapY, Mouse.x, Mouse.y)
   }
 }
@@ -42,27 +42,75 @@ var GridMouse = {
 
 // Аватар элемнта списка при Drag&Drop
 var Avatar = {
-  created:false,
-  focus:false,
-  difX:0,
-  difY:0
+  created: false,
+  focus: false,
+  grid: false,
+  difX: 0,
+  difY: 0
 }
 
 // Класс сетки
 class Constr_Lines {
-  
+
   constructor() {
     this.linesX = []
     this.linesY = []
     this.wrappX = GRID.children[0]
     this.wrappY = GRID.children[1]
   }
-  
+
   add(dir) {
-    let wrapp = (dir == 'X')? this.wrappX:this.wrappY;
+    let wrapp = (dir == 'X') ? this.wrappX : this.wrappY;
+    let arr = (dir == 'X') ? this.linesX : this.linesY;
     let line = Doc.createElement('div')
     line.className = 'line'
     wrapp.appendChild(line)
+    arr.push(line)
+  }
+
+  search(block) {
+    return new Promise((res, rej) => {
+      let x = block.offsetLeft + MAIN_b.scrollLeft - MAIN_b.offsetLeft
+      let y = block.offsetTop + MAIN_b.scrollTop - MAIN_b.offsetTop
+      let amountX = 0
+      let matchXLine = false
+      let posX = 0
+      for (let i = 0; i < this.linesX.length; i++) {
+        let lineX = this.linesX[i].offsetLeft
+        let lineX1 = lineX + this.linesX[i].offsetWidth
+
+        if (x >= lineX && x <= lineX1) {
+          matchXLine = this.linesX[i]          
+          posX = lineX
+        }
+        amountX++
+      }
+
+      let amountY = 0
+      let matchYLine = false
+      let posY = 0
+      for (let i = 0; i < this.linesY.length; i++) {
+        let lineY = this.linesY[i].offsetTop
+        let lineY1 = lineY + this.linesY[i].offsetHeight
+
+        if (y >= lineY && y <= lineY1) {
+          matchYLine = this.linesY[i];
+          posY = lineY
+        }
+        amountY++
+      }
+
+      if (amountX == this.linesX.length && amountY == this.linesY.length) {
+        let obj = {
+//          lineX: matchXLine,
+          posX,
+//          lineY: matchYLine,
+          posY
+        }
+        if (matchXLine && matchYLine) res(obj)
+        else rej(obj)
+      }
+    })
   }
 }
 // Объект сетки
