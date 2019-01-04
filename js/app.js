@@ -63,7 +63,8 @@ function moveAvatar() {
     Avatar.focus.classList.add('hidden')
 
     search.then((res) => {
-      createAvatarGrid()
+//      createAvatarGrid()
+//      dropItemToGrid()
       Avatar.grid.style.left = res.posX + 7 + 'px'
       Avatar.grid.style.top = res.posY + 1 + 'px'
 

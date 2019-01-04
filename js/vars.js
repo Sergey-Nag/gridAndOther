@@ -40,7 +40,7 @@ var GridMouse = {
   down: false
 }
 
-// Аватар элемнта списка при Drag&Drop
+// Аватар элемента списка при Drag&Drop
 var Avatar = {
   created: false,
   focus: false,
