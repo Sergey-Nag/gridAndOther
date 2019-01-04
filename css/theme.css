@@ -43,7 +43,7 @@ body {
 .theme {
   outline: none;
   border: none;
-  cursor: default;
+/*  cursor: default;*/
 }
 
 .theme[type="button"] {
@@ -62,6 +62,21 @@ body {
 
 .theme[type="button"]:active {
   background: linear-gradient(to top, #f4f4f4, #e7e7e7);
+}
+
+.theme[type="text"] {
+  width: inherit;
+}
+
+textarea.theme {
+  min-width: 53px;
+  max-width: 393px;
+  min-height: 37px;
+  max-height: 298px;
+}
+
+.focus .theme[type="text"] {
+  cursor: text;
 }
 
 label.theme {
@@ -103,15 +118,60 @@ item.list_item.avatar.hidden {
   opacity: 0;
 }
 
-item.list_item.grid_ghost {
+item.list_item.on_grid {
   position: absolute;
-  opacity: .6;
-  cursor: move;
-  box-shadow: -3px 2px 1px 1px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 }
-item.list_item.grid_draggble {
+item.list_item.on_grid textarea{
+  cursor: pointer;
+}
+
+item.list_item.on_grid.ghost {
+  opacity: .6;
+  box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+item.list_item.on_grid::before {
+  content: none
+}
+item.list_item.on_grid::after {
   position: absolute;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 2px;
+  font-size: .8em;
+}
+
+item.list_item.on_grid.focus {
+  box-shadow: 0 0 1px 3px rgba(0, 69, 255, 0.3);
+  border-color: rgba(0, 69, 255, 0.8);
+}
+
+item.list_item.on_grid.item_grid_wrapp {
+  display: grid;
+  width: inherit;
+}
+
+item.list_item.on_grid .item_grid_wrapp.one {
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+}
+
+item.list_item.on_grid .item_grid_wrapp .item_grid_block {
+  width: 100%;
+  height: 100%;
+}
+item.list_item.on_grid.focus .item_grid_block {
+  background: white;
+}
+
+item.list_item.on_grid {
+  padding: 12px 0 0;
+}
+
+item.list_item.on_grid.hoverTite {
+  cursor: move;
+  background: rgb(217, 217, 217);
 }
 
 
@@ -129,6 +189,7 @@ item[data-method]::after {
   font-size: .95em;
   font-weight: normal;
 }
+
 item[pfx]::before {
   content: attr(pfx);
   margin-right: 4px;

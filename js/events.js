@@ -5,17 +5,28 @@ eventsToListHeaders() // Скрытие & Раскрытие списков item
 toggleList() // Скрытие & Раскрытие списков item'ов при запуске
 scrollGridToCenter() // Скролл на центр сетки
 
+
+
 /*------------------- MOUSE DOWN ------------------*/
 Doc.onmousedown = (e) => {
   Mouse.down = true
   Mouse.tapX = e.pageX
   Mouse.tapY = e.pageY
+
+
+
+  //  return false
+}
+
+LEFT_b.onmousedown = (e) => {
   return false
 }
 GRID.onmousedown = (e) => {
   GridMouse.SX = MAIN_b.scrollLeft
   GridMouse.SY = MAIN_b.scrollTop
   GridMouse.down = true
+
+
 }
 
 /*------------------- MOUSE MOVE ------------------*/
@@ -24,16 +35,23 @@ Doc.onmousemove = (e) => {
   Mouse.y = e.pageY
   Mouse.target = e.target
 
-  if (GridMouse.down) {
+  if (Items.item) {
+    if (Mouse.target.nodeName == 'ITEM' && Mouse.target.id == Items.item.id) {
+      Items.item.classList.add('hoverTite')
+    } else {
+      Items.item.classList.remove('hoverTite')
+    }
+  }
+
+  if (GridMouse.down && !Items.item) {
     moveGrid()
     Doc.body.style.cursor = 'grabbing'
   } else Doc.body.style.cursor = 'default'
 
-  if (Mouse.down && Avatar.focus) {
-    moveAvatar()
-  } else {
+  if (Mouse.down && Avatar.focus) moveAvatar()
+  else {
     if (Mouse.isIn(MAIN_b)) {
-      dropItemToGrid()
+      Items.dropToGrid()
     }
     removeAvatar()
   }
@@ -46,6 +64,13 @@ Doc.onmouseup = (e) => {
   Mouse.tapY = 0
   GridMouse.down = false
   Mouse.down = false
+  
+  // Отмена выделения
+  if (Items.item) {
+    let targConnect = Mouse.target.getAttribute('connect')
+    if (targConnect !== Items.item.id && Mouse.target.id !== Items.item.id) Items.removeFocus()
+  }
+  
 }
 
 

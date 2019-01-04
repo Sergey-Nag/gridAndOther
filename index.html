@@ -23,11 +23,11 @@
             <div class="arrow_down"></div>
           </div>
           <div class="list_items min">
-            <item class="list_item draggble" id="var_string" type="min" data-method="string"></item>
-            <item class="list_item draggble" id="var_number" type="min" data-method="number"></item>
-            <item class="list_item draggble" id="var_bool" type="min" data-method="bool"></item>
-            <item class="list_item draggble" id="var_object" type="min" data-method="object"></item>
-            <item class="list_item draggble" id="var_array" type="min" data-method="array"></item>
+            <item class="list_item" id="var_string" type="min" data-method="string"></item>
+            <item class="list_item" id="var_number" type="min" data-method="number"></item>
+            <item class="list_item" id="var_bool" type="min" data-method="bool"></item>
+            <item class="list_item" id="var_object" type="min" data-method="object"></item>
+            <item class="list_item" id="var_array" type="min" data-method="array"></item>
           </div>
         </div>
         <div class="list_wrapp">
@@ -39,8 +39,8 @@
             <div class="arrow_down"></div>
           </div>
           <div class="list_items">
-            <item class="list_item draggble" id="incoming" type="full" pfx="on" data-method="incoming_data"></item>
-            <item class="list_item draggble" id="query" type="full" pfx="on" data-method="query"></item>
+            <item class="list_item" id="incoming" type="full" pfx="on" data-method="incoming_data"></item>
+            <item class="list_item" id="query" type="full" pfx="on" data-method="query"></item>
           </div>
         </div>
         <div class="list_wrapp">
@@ -52,8 +52,8 @@
             <div class="arrow_down"></div>
           </div>
           <div class="list_items">
-            <item class="list_item draggble" id="if" type="full" data-method="If"></item>
-            <item class="list_item draggble" id="ifElse" type="full" data-method="If-Else"></item>
+            <item class="list_item" id="if" type="full" data-method="If"></item>
+            <item class="list_item" id="ifElse" type="full" data-method="If-Else"></item>
           </div>
         </div>
         <div class="list_wrapp">
@@ -65,8 +65,8 @@
             <div class="arrow_down"></div>
           </div>
           <div class="list_items">
-            <item class="list_item draggble" id="for" type="full" data-method="For"></item>
-            <item class="list_item draggble" id="while" type="full" data-method="While"></item>
+            <item class="list_item" id="for" type="full" data-method="For"></item>
+            <item class="list_item" id="while" type="full" data-method="While"></item>
           </div>
         </div>
         <div class="list_wrapp">
@@ -78,9 +78,9 @@
             <div class="arrow_down"></div>
           </div>
           <div class="list_items">
-            <item class="list_item draggble" id="Date" type="full" data-method="Date"></item>
-            <item class="list_item draggble" id="timeout" type="full" data-method="Timeout"></item>
-            <item class="list_item draggble" id="interval" type="full" data-method="Interval"></item>
+            <item class="list_item" id="Date" type="full" data-method="Date"></item>
+            <item class="list_item" id="timeout" type="full" data-method="Timeout"></item>
+            <item class="list_item" id="interval" type="full" data-method="Interval"></item>
           </div>
         </div>
         <div class="list_wrapp">
@@ -92,9 +92,9 @@
             <div class="arrow_down"></div>
           </div>
           <div class="list_items">
-            <item class="list_item draggble" id="class_Data" type="full" pfx="new" data-method="Data"></item>
-            <item class="list_item draggble" id="class_User" type="full" pfx="new" data-method="User"></item>
-            <item class="list_item draggble" id="class_Promise" type="full" pfx="new" data-method="Promise"></item>
+            <item class="list_item" id="class_Data" type="full" pfx="new" data-method="Data"></item>
+            <item class="list_item" id="class_User" type="full" pfx="new" data-method="User"></item>
+            <item class="list_item" id="class_Promise" type="full" pfx="new" data-method="Promise"></item>
           </div>
         </div>
         <div class="list_wrapp">
@@ -102,14 +102,14 @@
             <div class="line_h_wrapp">
               <div class="line_header"></div>
             </div>
-            <h5>String manage</h5>
+            <h5>Manage</h5>
             <div class="arrow_down"></div>
           </div>
           <div class="list_items">
-            <item class="list_item draggble" id="string_length" type="full" for="string" data-method=".length"></item>
-            <item class="list_item draggble" id="string_includes" type="full" for="string"  data-method=".includes"></item>
-            <item class="list_item draggble" id="string_tolowercase" type="full" for="string"  data-method=".toLowerCase"></item>
-            <item class="list_item draggble" id="string_touppercase" type="full" for="string"  data-method=".toUpperCase"></item>
+            <item class="list_item" id="string_length" type="full" for="string number array" data-method=".length"></item>
+            <item class="list_item" id="string_includes" type="full" for="string"  data-method=".includes"></item>
+            <item class="list_item" id="string_tolowercase" type="full" for="string"  data-method=".toLowerCase"></item>
+            <item class="list_item" id="string_touppercase" type="full" for="string"  data-method=".toUpperCase"></item>
           </div>
         </div>
       </div>
@@ -118,7 +118,6 @@
           <div class="X_lines"></div>
           <div class="Y_lines"></div>
           <div class="grid_items">
-            ss
           </div>
         </div>
       </div>
@@ -126,6 +125,7 @@
   </main>
 
 
+  <script src="js/markupItems.js"></script>
   <script src="js/vars.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/app.js"></script>

@@ -1,7 +1,7 @@
-// document
-const Doc = document;
 // tag main
 const MAIN = Doc.querySelector('main');
+// class left_b
+const LEFT_b = Doc.getElementsByClassName('left_b')[0];
 // id grid
 const GRID = Doc.getElementById('grid');
 // class main_b
@@ -10,6 +10,9 @@ const MAIN_b = Doc.getElementsByClassName('main_b')[0];
 const LIST_headers = Doc.getElementsByClassName('list_header');
 // items
 const ITEMS = Doc.getElementsByTagName('item');
+// inputs.theme
+const THEME_inputs = Doc.getElementsByTagName('input');
+
 
 // Данные курсора мыши
 var Mouse = {
@@ -40,7 +43,7 @@ var GridMouse = {
   down: false
 }
 
-// Аватар элемента списка при Drag&Drop
+// Аватар элемнта списка при Drag&Drop
 var Avatar = {
   created: false,
   focus: false,
@@ -115,53 +118,102 @@ class Constr_Lines {
 }
 // Объект сетки
 var Lines = new Constr_Lines();
-
-// Класс Grid
-class Grid_Items {
+// Класс item'ов
+class Constr_Items_Grid {
   constructor() {
-    this.map = []
-    this.items = []
     this.lastIndex = 0
+    this.map = []
+    this.currPos = {
+      x: 0,
+      y: 0
+    }
+    this.ghost = false
+    this.item = false
     this.config = {
-      var_string: {
+      string: {
         type: 'variable',
-        data_type: 'string'
-      },
-      var_number: {
-        type: 'variable',
-        data_type: 'number'
+        data_type: 'string',
+        markup: returnStringMarkup
       }
     }
   }
 
-  add(itm) {
-    if (itm) {
-      let conf = this.config[itm.id]
-      if (conf !== undefined) {
-        // get position
-        let posX = Avatar.grid.offsetLeft
-        let posY = Avatar.grid.offsetTop
-        // clone
-        itm = itm.cloneNode(true)
-        // push
-        let item = this.items.push(itm)
-        // toggle classes
-        itm.classList.remove('hidden', 'avatar')
-        itm.classList.add('grid_draggble')
-        // set position
-        itm.style.left = posX -3 + 'px'
-        itm.style.top = posY +2+ 'px'
-        // returning ready item
-        return itm
-      } else {
-        console.warn(itm.id, '- not found in config')
+  dropToGrid() {
+    if (this.ghost) {
+      this.item = this.ghost
+      this.ghost = false
+
+      this.item.classList.remove('ghost')
+      let obj = {
+        pos: Object.assign({}, this.currPos),
+        item: this.item
       }
+      let ITM = this
+      obj.item.addEventListener('mousedown', (e) => {
+        if (e.which == 1) {
+          ITM.focusItem(obj.item)
+        }
+      })
+      this.restoreVars()
     }
-    return false
   }
+  focusItem(item) {
+    this.removeFocus()
+    this.item = item
+    this.item.classList.add('focus');
+
+  }
+  removeFocus() {
+    if (this.item) {
+      this.item.classList.remove('focus')
+      this.item = false
+    }
+  }
+  restoreVars() {
+    this.ghost = false
+    this.item = false
+    this.currPos.x = 0
+    this.currPos.y = 0
+  }
+  addGhost(item) {
+    if (!this.ghost) {
+      this.ghost = item.cloneNode(true);
+      this.ghost.classList.remove('avatar', 'hidden')
+      this.ghost.classList.add('on_grid', 'ghost')
+      
+      this.ghost.style.width = 'auto'
+      
+      this.ghost.id = this.ghost.id + '__G' + this.lastIndex;
+      this.lastIndex++;
+      
+      let data = this.ghost.getAttribute('data-method')
+      let id = this.ghost.id
+      if (this.config[data] !== undefined) this.ghost.appendChild(this.config[data].markup(id))
+      GRID.appendChild(this.ghost)
+    }
+  }
+  removeGhost() {
+    if (this.ghost) {
+      GRID.removeChild(this.ghost)
+      this.ghost = false
+    }
+  }
+  position(x, y) {
+    if (this.ghost) {
+      this.ghost.style.left = x + 3 + 'px'
+      this.ghost.style.top = y + 3 + 'px'
+      this.currPos.x = x
+      this.currPos.y = y
+    }
+  }
+  formingTemplate() {
+
+  }
+
 }
-// Объект Grid
-var GridItems = new Grid_Items()
+// Объект item'ов
+var Items = new Constr_Items_Grid()
+
 
 
 /*--------------- DEFAULT FUNCTIONS --------------*/

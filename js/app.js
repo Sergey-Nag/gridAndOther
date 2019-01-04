@@ -61,27 +61,16 @@ function moveAvatar() {
     let search = Lines.search(Avatar.focus)
 
     Avatar.focus.classList.add('hidden')
+    Items.addGhost(Avatar.focus)
 
     search.then((res) => {
-//      createAvatarGrid()
-//      dropItemToGrid()
-      Avatar.grid.style.left = res.posX + 7 + 'px'
-      Avatar.grid.style.top = res.posY + 1 + 'px'
-
+      Items.position(res.posX, res.posY)
     }).catch((rej) => {
       Avatar.focus.classList.remove('hidden')
-      removeGridGhost()
     })
   } else {
+    Items.removeGhost()
     Avatar.focus.classList.remove('hidden')
-  }
-}
-
-/* Установить item на сетку */
-function dropItemToGrid() {
-  let item = GridItems.add(Avatar.focus)
-  if (item) {
-    GRID.appendChild(item)
   }
 }
 
@@ -105,17 +94,7 @@ function createAvatar() {
   Avatar.created = false
 }
 
-function createAvatarGrid() {
-  if (!Avatar.grid) {
-    let gridAv = Avatar.focus.cloneNode(false)
-
-    gridAv.classList.remove('draggble', 'avatar')
-    gridAv.classList.add('grid_draggble', 'grid_ghost')
-    gridAv.appendChild(insertDataGridInItem(Avatar.focus, false))
-    GRID.appendChild(gridAv)
-    Avatar.grid = gridAv
-  }
-}
+function createAvatarGrid() {}
 
 function insertDataGridInItem(item, show) {
   let attr = {
