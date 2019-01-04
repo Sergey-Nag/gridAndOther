@@ -13,8 +13,13 @@ Doc.onmousedown = (e) => {
   Mouse.tapX = e.pageX
   Mouse.tapY = e.pageY
 
-
-
+  if (Items.item && Mouse.down) {
+    Items.itemDif.x = e.offsetX
+    Items.itemDif.y = e.offsetY
+  } else {
+    Items.itemDif.x = 0
+    Items.itemDif.y = 0
+  }
   //  return false
 }
 
@@ -38,8 +43,17 @@ Doc.onmousemove = (e) => {
   if (Items.item) {
     if (Mouse.target.nodeName == 'ITEM' && Mouse.target.id == Items.item.id) {
       Items.item.classList.add('hoverTite')
+      if (Mouse.down && Mouse.holdVector() > 4) {
+        Items.isDrag = true
+      } else Items.isDrag = false
     } else {
       Items.item.classList.remove('hoverTite')
+    }
+
+    if (Items.isDrag) {
+      moveItemOnGrid()
+    } else {
+      Items.item.classList.remove('ghost')
     }
   }
 
@@ -64,13 +78,13 @@ Doc.onmouseup = (e) => {
   Mouse.tapY = 0
   GridMouse.down = false
   Mouse.down = false
-  
+
   // Отмена выделения
   if (Items.item) {
     let targConnect = Mouse.target.getAttribute('connect')
     if (targConnect !== Items.item.id && Mouse.target.id !== Items.item.id) Items.removeFocus()
   }
-  
+
 }
 
 

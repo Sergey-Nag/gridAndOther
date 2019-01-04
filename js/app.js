@@ -74,6 +74,20 @@ function moveAvatar() {
   }
 }
 
+function moveItemOnGrid() {
+  let search = Lines.search({
+    isMouse: true,
+    x: Mouse.x - Items.itemDif.x + MAIN_b.scrollLeft - MAIN_b.offsetLeft,
+    y: Mouse.y - Items.itemDif.y + MAIN_b.scrollTop - MAIN_b.offsetTop
+  })
+  search.then((res) => {
+    Items.item.classList.add('ghost','hoverTite')
+    Items.position(res.posX, res.posY)
+  }).catch((rej) => {
+    Items.item.classList.remove('ghost','hoverTite')
+  })
+}
+
 function createAvatar() {
   let av = Avatar.created
   if (av) {

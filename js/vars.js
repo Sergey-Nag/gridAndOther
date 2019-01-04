@@ -73,8 +73,15 @@ class Constr_Lines {
 
   search(block) {
     return new Promise((res, rej) => {
-      let x = block.offsetLeft + MAIN_b.scrollLeft - MAIN_b.offsetLeft
-      let y = block.offsetTop + MAIN_b.scrollTop - MAIN_b.offsetTop
+      let x = 0
+      let y = 0
+      if (block.isMouse) {
+        x = block.x
+        y = block.y
+      } else {
+        x = block.offsetLeft + MAIN_b.scrollLeft - MAIN_b.offsetLeft
+        y = block.offsetTop + MAIN_b.scrollTop - MAIN_b.offsetTop
+      }
       let amountX = 0
       let matchXLine = false
       let posX = 0
@@ -123,6 +130,11 @@ class Constr_Items_Grid {
   constructor() {
     this.lastIndex = 0
     this.map = []
+    this.isDrag = false
+    this.itemDif = {
+      x: 0,
+      y: 0
+    }
     this.currPos = {
       x: 0,
       y: 0
@@ -154,6 +166,7 @@ class Constr_Items_Grid {
           ITM.focusItem(obj.item)
         }
       })
+      this.map.push(obj)
       this.restoreVars()
     }
   }
@@ -180,12 +193,12 @@ class Constr_Items_Grid {
       this.ghost = item.cloneNode(true);
       this.ghost.classList.remove('avatar', 'hidden')
       this.ghost.classList.add('on_grid', 'ghost')
-      
+
       this.ghost.style.width = 'auto'
-      
+
       this.ghost.id = this.ghost.id + '__G' + this.lastIndex;
       this.lastIndex++;
-      
+
       let data = this.ghost.getAttribute('data-method')
       let id = this.ghost.id
       if (this.config[data] !== undefined) this.ghost.appendChild(this.config[data].markup(id))
@@ -199,15 +212,38 @@ class Constr_Items_Grid {
     }
   }
   position(x, y) {
-    if (this.ghost) {
-      this.ghost.style.left = x + 3 + 'px'
-      this.ghost.style.top = y + 3 + 'px'
+    let item = false
+    if (this.ghost) item = this.ghost
+    else if (this.item) item = this.item
+
+
+    if (item) {
+      item.style.left = x + 3 + 'px'
+      item.style.top = y + 3 + 'px'
       this.currPos.x = x
       this.currPos.y = y
+      if (this.item) {
+        
+        
+        
+        
+        /*
+          Изменение позиции в map
+        */
+        
+        console.log(this.searchInMap(item))
+        
+        
+        
+        
+        
+        
+      }
     }
-  }
-  formingTemplate() {
 
+  }
+  searchInMap(item) {
+    return this.map.filter((el) => el.item == item)[0]
   }
 
 }
