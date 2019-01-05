@@ -4,6 +4,22 @@ function resizeMain() {
   MAIN.style.height = H + 'px'
 }
 
+// Позиция ITEM_controlls
+function itemControlls() {
+  let mainW = MAIN_b.offsetWidth;
+  ITEM_controlls.style.width = mainW * 0.85 + 'px'
+  ITEM_controlls.style.marginLeft = mainW / 2 - ITEM_controlls.offsetWidth / 2 + 'px'
+}
+
+function activeItemControlls(dir) {
+  if (dir == 'down') {
+    ITEM_controlls.classList.remove('up')
+    ITEM_controlls.classList.add('down')
+  } else {
+    ITEM_controlls.classList.remove('down')
+    ITEM_controlls.classList.add('up')
+  }
+}
 // Отрисовка сетки
 function drawLines() {
   let X = GRID.offsetWidth / 20
@@ -27,12 +43,12 @@ function moveGrid() {
 function scrollGridToCenter() {
   let height = GRID.offsetHeight
   let width = GRID.offsetWidth
-  
+
   let x = GRID.offsetLeft
   let y = GRID.offsetTop
-  
-  let x1 = x+width
-  let y1 = y+height
-  MAIN_b.scrollTop = height/2-MAIN_b.offsetHeight/2
-  MAIN_b.scrollLeft = width/2-MAIN_b.offsetWidth/2
+
+  let x1 = x + width
+  let y1 = y + height
+  MAIN_b.scrollTop = height / 2 - MAIN_b.offsetHeight / 2
+  MAIN_b.scrollLeft = width / 2 - MAIN_b.offsetWidth / 2
 }

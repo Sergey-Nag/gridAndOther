@@ -6,13 +6,14 @@ const LEFT_b = Doc.getElementsByClassName('left_b')[0];
 const GRID = Doc.getElementById('grid');
 // class main_b
 const MAIN_b = Doc.getElementsByClassName('main_b')[0];
+// id item_controlls
+const ITEM_controlls = Doc.getElementById('item_controlls');
 // class list_header
 const LIST_headers = Doc.getElementsByClassName('list_header');
 // items
 const ITEMS = Doc.getElementsByTagName('item');
 // inputs.theme
 const THEME_inputs = Doc.getElementsByTagName('input');
-
 
 // Данные курсора мыши
 var Mouse = {
@@ -151,6 +152,11 @@ class Constr_Items_Grid {
         type: 'variable',
         data_type: 'number',
         markup: returnNumberMarkup
+      },
+      bool: {
+        type: 'variable',
+        data_type: 'boolean',
+        markup: returnBoolMarkup
       }
     }
   }
@@ -179,12 +185,13 @@ class Constr_Items_Grid {
     this.removeFocus()
     this.item = item
     this.item.classList.add('focus');
-
+    activeItemControlls('down')
   }
   removeFocus() {
     if (this.item) {
       this.item.classList.remove('focus')
       this.item = false
+      activeItemControlls('up')
     }
   }
   restoreVars() {

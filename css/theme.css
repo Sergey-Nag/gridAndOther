@@ -77,7 +77,7 @@ textarea.theme {
 }
 
 .theme.connect {
-/*  cursor: grab;*/
+  /*  cursor: grab;*/
   cursor: url(../cursor_plus.png), default;
   position: absolute;
   width: 15px;
@@ -90,7 +90,6 @@ textarea.theme {
 
 .theme.connect[connect-method="input"] {
   left: -8px;
-  bottom: 18px;
   border-color: #3baeeb;
   background-color: white;
 }
@@ -101,10 +100,36 @@ textarea.theme {
 
 .theme.connect[connect-method="output"] {
   right: -8px;
-  bottom: 18px;
   border-color: #3beb9a;
   background-color: white;
 }
+
+.theme.connect[connect-method="input"].hidden {
+  display: none;
+}
+
+/* ------ STRING ------ */
+item[data-method="string"] .theme.connect[connect-method="input"],
+item[data-method="string"] .theme.connect[connect-method="output"] {
+  bottom: 18px;
+}
+
+
+/* ------ NUMBER ------ */
+item[data-method="number"] .theme.connect[connect-method="input"],
+item[data-method="number"] .theme.connect[connect-method="output"] {
+  bottom: 9px;
+}
+
+
+/* ------ BOOL ------ */
+item[data-method="bool"] .theme.connect[connect-method="input"],
+item[data-method="bool"] .theme.connect[connect-method="output"] {
+  bottom: 9px;
+}
+
+
+
 
 .theme.connect:hover {
   transform: scale(1.15)
@@ -171,6 +196,7 @@ item.list_item.on_grid.ghost {
 item.list_item.on_grid:hover {
   z-index: 100;
 }
+
 item.list_item.on_grid::before {
   content: none
 }
@@ -223,6 +249,18 @@ item.list_item.on_grid.ghost textarea {
   cursor: move;
 }
 
+item.list_item.on_grid .settings {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+}
+
+item.list_item.on_grid .settings:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
 
 item[type="full"] {
   margin-bottom: 8px;

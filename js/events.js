@@ -1,9 +1,10 @@
-resizeMain() // Размер окна
-drawLines() // Отрисовка сетки
-eventToItems() // Обработчики нажатия по item'ам
-eventsToListHeaders() // Скрытие & Раскрытие списков item'ов
-toggleList() // Скрытие & Раскрытие списков item'ов при запуске
-scrollGridToCenter() // Скролл на центр сетки
+resizeMain(); // Высота окна
+drawLines(); // Отрисовка сетки
+eventToItems(); // Обработчики нажатия по item'ам
+eventsToListHeaders(); // Скрытие & Раскрытие списков item'ов
+toggleList(); // Скрытие & Раскрытие списков item'ов при запуске
+scrollGridToCenter(); // Скролл на центр сетки
+itemControlls(); // Позиция ITEM_controll
 
 
 
@@ -30,8 +31,6 @@ GRID.onmousedown = (e) => {
   GridMouse.SX = MAIN_b.scrollLeft
   GridMouse.SY = MAIN_b.scrollTop
   GridMouse.down = true
-
-
 }
 
 /*------------------- MOUSE MOVE ------------------*/
@@ -85,13 +84,14 @@ Doc.onmouseup = (e) => {
   // Отмена выделения
   if (Items.item) {
     let targConnect = Mouse.target.getAttribute('connect')
-    if (targConnect !== Items.item.id && Mouse.target.id !== Items.item.id) Items.removeFocus()
+    if (targConnect !== Items.item.id && targConnect !== 'item_controlls' && Mouse.target.id !== Items.item.id) Items.removeFocus()
   }
-
+  console.log(Mouse.target)
 }
 
 
 /*------------------- RESIZE ------------------*/
 window.onresize = (e) => {
-  resizeMain() // Размер окна
+  resizeMain() // Высота окна
+  itemControlls(); // Позиция ITEM_controll
 }
