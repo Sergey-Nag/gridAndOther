@@ -146,6 +146,11 @@ class Constr_Items_Grid {
         type: 'variable',
         data_type: 'string',
         markup: returnStringMarkup
+      },
+      number: {
+        type: 'variable',
+        data_type: 'number',
+        markup: returnNumberMarkup
       }
     }
   }
@@ -223,21 +228,11 @@ class Constr_Items_Grid {
       this.currPos.x = x
       this.currPos.y = y
       if (this.item) {
-        
-        
-        
-        
-        /*
-          Изменение позиции в map
-        */
-        
-        console.log(this.searchInMap(item))
-        
-        
-        
-        
-        
-        
+        let mapItem = this.searchInMap(item);
+        if (mapItem !== undefined) {
+          mapItem.pos.x = x
+          mapItem.pos.y = y
+        }
       }
     }
 

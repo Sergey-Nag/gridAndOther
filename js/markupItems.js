@@ -1,20 +1,43 @@
 // document
 const Doc = document;
 
+// Строка
 function returnStringMarkup(data) {
-  let wrapp = createEl('div.item_grid_wrapp.one[connect="'+data+'"]');
-  let item = createEl('div.item_grid_block[connect="'+data+'"]');
+  let wrapp = createEl('div.item_grid_wrapp.one[connect="' + data + '"]');
+  let item = createEl('div.item_grid_block[connect="' + data + '"]');
+  let textWrapp = createEl('div.items_wrapp[connect="' + data + '"]');
 
-  let input = createEl('textarea.theme[type="text"][placeholder="input string"][style="width:153px"][connect="'+data+'"]');
-  
-  input.onresize = (e)=> {
-    console.log('res')
+  let contrl = {
+    input: createEl('div.theme.connect.hidden[connect-method="input"][connect="' + data + '"]'),
+    textarea: createEl('textarea.theme[placeholder="input string"][style="width:103px"][connect="' + data + '"]'),
+    output: createEl('div.theme.connect[connect-method="output"][connect="' + data + '"]')
   }
-  item.appendChild(input)
+
+  for (input in contrl) textWrapp.appendChild(contrl[input])
+
+  item.appendChild(textWrapp)
   wrapp.appendChild(item)
   return wrapp
 }
 
+// Число
+function returnNumberMarkup(data) {
+  let wrapp = createEl('div.item_grid_wrapp.one[connect="' + data + '"]');
+  let item = createEl('div.item_grid_block[connect="' + data + '"]');
+  let textWrapp = createEl('div.items_wrapp[connect="' + data + '"]');
+
+  let contrl = {
+    input: createEl('div.theme.connect.hidden[connect-method="input"][connect="' + data + '"]'),
+    textarea: createEl('textarea.theme[placeholder="input number"][style="width:103px"][connect="' + data + '"]'),
+    output: createEl('div.theme.connect[connect-method="output"][connect="' + data + '"]')
+  }
+
+  for (input in contrl) textWrapp.appendChild(contrl[input])
+
+  item.appendChild(textWrapp)
+  wrapp.appendChild(item)
+  return wrapp
+}
 
 // Создать элемент Emet (tag, #id, .class, [att="ribs"])
 function createEl(string) {
@@ -31,13 +54,13 @@ function createEl(string) {
 
       if (Elattrs !== null) {
         for (let i = 0; i < Elattrs.length; i++) {
-          let attr = Elattrs[i].replace(/\[|\]/gi,'').split('=')
+          let attr = Elattrs[i].replace(/\[|\]/gi, '').split('=')
           let name = attr[0]
           let value = attr[1].replace(/"/g, '');
           elem.setAttribute(name, value)
         }
       }
-        
+
       return elem
     } else console.warn('tag not found')
   } else console.warn('string is empty')

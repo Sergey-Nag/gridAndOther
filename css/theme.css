@@ -43,7 +43,7 @@ body {
 .theme {
   outline: none;
   border: none;
-/*  cursor: default;*/
+  /*  cursor: default;*/
 }
 
 .theme[type="button"] {
@@ -69,10 +69,45 @@ body {
 }
 
 textarea.theme {
-  min-width: 53px;
-  max-width: 393px;
+  min-width: 43px;
+  max-width: 383px;
   min-height: 37px;
   max-height: 298px;
+  text-align: center;
+}
+
+.theme.connect {
+/*  cursor: grab;*/
+  cursor: url(../cursor_plus.png), default;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 10px;
+  background: grey;
+  border-style: solid;
+  border-width: 3px;
+}
+
+.theme.connect[connect-method="input"] {
+  left: -8px;
+  bottom: 18px;
+  border-color: #3baeeb;
+  background-color: white;
+}
+
+.theme.connect[connect-method="input"].hidden {
+  display: none;
+}
+
+.theme.connect[connect-method="output"] {
+  right: -8px;
+  bottom: 18px;
+  border-color: #3beb9a;
+  background-color: white;
+}
+
+.theme.connect:hover {
+  transform: scale(1.15)
 }
 
 .focus .theme[type="text"] {
@@ -123,7 +158,8 @@ item.list_item.on_grid {
   cursor: pointer;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 }
-item.list_item.on_grid textarea{
+
+item.list_item.on_grid textarea {
   cursor: pointer;
 }
 
@@ -132,9 +168,13 @@ item.list_item.on_grid.ghost {
   box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
+item.list_item.on_grid:hover {
+  z-index: 100;
+}
 item.list_item.on_grid::before {
   content: none
 }
+
 item.list_item.on_grid::after {
   position: absolute;
   top: 0;
@@ -161,6 +201,7 @@ item.list_item.on_grid .item_grid_wrapp .item_grid_block {
   width: 100%;
   height: 100%;
 }
+
 item.list_item.on_grid.focus .item_grid_block {
   background: white;
 }
@@ -169,12 +210,16 @@ item.list_item.on_grid {
   padding: 12px 0 0;
 }
 
+item.list_item.on_grid .items_wrapp {
+  padding: 0 5px;
+}
+
 item.list_item.on_grid.hoverTite {
   cursor: move;
   background: rgb(217, 217, 217);
 }
 
-item.list_item.on_grid.ghost textarea{
+item.list_item.on_grid.ghost textarea {
   cursor: move;
 }
 
@@ -289,4 +334,8 @@ item.list_item[for="string"] {
 .main_b::-webkit-scrollbar-thumb,
 .left_b::-webkit-scrollbar-thumb {
   background: #828282;
+}
+
+textarea.theme::-webkit-scrollbar {
+  width: 2px;
 }

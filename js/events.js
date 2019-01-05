@@ -43,12 +43,15 @@ Doc.onmousemove = (e) => {
   if (Items.item) {
     if (Mouse.target.nodeName == 'ITEM' && Mouse.target.id == Items.item.id) {
       Items.item.classList.add('hoverTite')
-      if (Mouse.down && Mouse.holdVector() > 4) {
-        Items.isDrag = true
+      if (Mouse.down) {
+        if (Mouse.holdVector() > 3 && e.offsetY < 12) {
+          Items.isDrag = true
+        } else Items.isDrag = false
       } else Items.isDrag = false
     } else {
       Items.item.classList.remove('hoverTite')
     }
+
 
     if (Items.isDrag) {
       moveItemOnGrid()
