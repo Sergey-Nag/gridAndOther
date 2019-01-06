@@ -86,7 +86,7 @@ Doc.onmouseup = (e) => {
     let targConnect = Mouse.target.getAttribute('connect')
     if (targConnect !== Items.item.id && targConnect !== 'item_controlls' && Mouse.target.id !== Items.item.id) Items.removeFocus()
   }
-  console.log(Mouse.target)
+  
 }
 
 
@@ -94,4 +94,13 @@ Doc.onmouseup = (e) => {
 window.onresize = (e) => {
   resizeMain() // Высота окна
   itemControlls(); // Позиция ITEM_controll
+}
+
+/*------------------- KEY DOWN ------------------*/
+Doc.onkeydown = (e) => {
+  Keyboard.down = e.which
+}
+/*------------------- KEY UP ------------------*/
+Doc.onkeyup = (e) => {
+  Keyboard.up = e.which
 }

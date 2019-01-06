@@ -114,10 +114,13 @@
         </div>
       </div>
       <div class="main_b block">
-        <div id="item_controlls" class="down" connect="item_controlls">
+        <div id="item_controlls" class="up" connect="item_controlls">
           <div class="controlls_template two" connect="item_controlls">
             <div class="col" connect="item_controlls">
-              <label class="theme" for="var_name" connect="item_controlls">var</label><input class="theme" id="var_name" type="text" connect="item_controlls">
+              <div class="wrapp">
+                <label class="theme" for="input_var_name" connect="item_controlls">var</label><input class="theme" id="input_var_name" type="text" connect="item_controlls" placeholder="variable name">
+                <label class="theme" for="input_block_color" connect="item_controlls">color</label><input class="theme" id="input_block_color" type="color" connect="item_controlls">
+              </div>
             </div>
           </div>
         </div>

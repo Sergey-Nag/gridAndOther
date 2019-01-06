@@ -168,19 +168,34 @@ main {
   transition-timing-function: cubic-bezier(0, 0, .59, 1.1);
   margin-top: -3px;
 }
-#item_controlls input {
+
+[type="text"] {
   border: solid 1px #d1d1d1;
   padding: 2px;
   border-radius: 4px;
   width: auto;
 }
+
 .controlls_template {
   display: grid;
 }
+
 .controlls_template.two {
   grid-template-columns: 1fr 1fr;
 }
 
 .controlls_template.three {
   grid-template-columns: 1fr 1fr 1fr;
+}
+.controlls_template .wrapp {
+  margin-bottom: 3px;
+}
+.controlls_template .wrapp:last-child {
+  margin-bottom: 0px;
+}
+#item_controlls input:focus {
+  border-color: rgba(0, 69, 255, 0.8);
+}
+.warn {
+  border-color: #ffcc20!important;
 }

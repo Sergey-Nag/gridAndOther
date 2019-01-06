@@ -56,6 +56,14 @@ body {
   padding: 4px;
 }
 
+.theme[type="color"] {
+  cursor: pointer;
+  width: 19px;
+  height: 19px;
+  padding: 1px;
+  border: 1px solid buttonface;
+}
+
 .theme[type="button"]:hover {
   background: linear-gradient(to bottom, #f4f4f4, #e7e7e7);
 }
@@ -156,7 +164,9 @@ item {
   width: 100%;
   padding: 5px;
 }
-
+item.lightText {
+  color: white;
+}
 item.list_item {
   cursor: pointer;
   border-width: 1px;
@@ -186,6 +196,10 @@ item.list_item.on_grid {
 
 item.list_item.on_grid textarea {
   cursor: pointer;
+  background: transparent;
+}
+item.list_item.on_grid input {
+  background: transparent;
 }
 
 item.list_item.on_grid.ghost {
@@ -202,6 +216,14 @@ item.list_item.on_grid::before {
 }
 
 item.list_item.on_grid::after {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  font-size: .8em;
+}
+
+item.list_item.on_grid[name]::after {
+  content: attr(name);
   position: absolute;
   top: 0;
   left: 2px;
@@ -251,15 +273,23 @@ item.list_item.on_grid.ghost textarea {
 
 item.list_item.on_grid .settings {
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 15px;
-  height: 15px;
+  right: -10px;
+  top: -22px;
+  width: 18px;
+  height: 18px;
   border-radius: 15px;
+  background: url(../icons/preference.png) no-repeat center;
+  background-size: cover;
+  opacity: .5;
+}
+
+item.list_item.on_grid .settings.hidden {
+  display: none;
 }
 
 item.list_item.on_grid .settings:hover {
-  background: rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+  opacity: 1;
 }
 
 item[type="full"] {

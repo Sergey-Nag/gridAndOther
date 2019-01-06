@@ -11,14 +11,65 @@ function itemControlls() {
   ITEM_controlls.style.marginLeft = mainW / 2 - ITEM_controlls.offsetWidth / 2 + 'px'
 }
 
-function activeItemControlls(dir) {
+function activeItemControlls(id, dir) {
+  let varNameInput = Doc.getElementById('input_var_name')
+  let varColorInput = Doc.getElementById('input_block_color')
   if (dir == 'down') {
+    let finded = Items.searchInMap(id)
+    varNameInput.value = finded.name
+    varColorInput.value = finded.color
+    varNameInput.addEventListener('keyup', inputTextListenner)
+    varColorInput.addEventListener('input', inputColorListenner)
+
+
+
     ITEM_controlls.classList.remove('up')
     ITEM_controlls.classList.add('down')
   } else {
+    varNameInput.removeEventListener('keyup', inputTextListenner, false)
+    varColorInput.removeEventListener('input', inputColorListenner, false)
+    varNameInput.classList.remove('warn')
     ITEM_controlls.classList.remove('down')
     ITEM_controlls.classList.add('up')
   }
+}
+
+function inputColorListenner(e) {
+  let item = Items.item
+  let finded = Items.searchInMap(item.id)
+  finded.color = this.value
+  
+  let rgb = hex2rgb(this.value)
+  let hsl = rgb2hsl(rgb.r, rgb.g, rgb.b);
+  
+  item.style.backgroundColor = this.value;
+  if (hsl[2] < 40) item.classList.add('lightText')
+  else item.classList.remove('lightText')
+}
+// Присвоение имени item-переменной
+function inputTextListenner(e) {
+  let varNameInput = this
+  let item = Items.item
+  let finded = Items.searchInMap(item.id)
+
+  console.log(this, finded)
+  if (this.value !== '') {
+
+    if (/[a-z]/gi.test(this.value) && !/\W/.test(this.value)) {
+      this.classList.remove('warn')
+      finded.name = this.value
+      this.value = finded.name
+      item.setAttribute('name', finded.name)
+    } else {
+      finded.name = ''
+      item.removeAttribute('name')
+      this.classList.add('warn')
+    }
+  } else {
+    item.removeAttribute('name')
+  }
+
+  if (e.which == 13) this.blur()
 }
 // Отрисовка сетки
 function drawLines() {

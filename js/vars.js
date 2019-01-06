@@ -37,6 +37,11 @@ var Mouse = {
   }
 }
 
+// Данные клавиатуры
+var Keyboard = {
+  down: false,
+  up: false
+}
 // Данные курсора внутри сетки
 var GridMouse = {
   SX: 0,
@@ -168,8 +173,12 @@ class Constr_Items_Grid {
 
       this.item.classList.remove('ghost')
       let obj = {
+        id: this.item.id,
+        name: '',
+        color: '',
         pos: Object.assign({}, this.currPos),
-        item: this.item
+        item: this.item,
+        data: {}
       }
       let ITM = this
       obj.item.addEventListener('mousedown', (e) => {
@@ -185,13 +194,23 @@ class Constr_Items_Grid {
     this.removeFocus()
     this.item = item
     this.item.classList.add('focus');
-    activeItemControlls('down')
+
+    let settings = this.item.children[0].children[0].children[0]
+    settings.addEventListener('click', function () {
+      if (ITEM_controlls.classList.contains('up')) activeItemControlls(item.id,'down')
+    })
+    settings.classList.remove('hidden')
+
   }
   removeFocus() {
     if (this.item) {
+      let settings = this.item.children[0].children[0].children[0]
+      settings.classList.add('hidden')
+
       this.item.classList.remove('focus')
+      activeItemControlls(this.item, 'up')
+
       this.item = false
-      activeItemControlls('up')
     }
   }
   restoreVars() {
@@ -245,9 +264,12 @@ class Constr_Items_Grid {
 
   }
   searchInMap(item) {
-    return this.map.filter((el) => el.item == item)[0]
+    if (typeof item == 'string') {
+      let finded = this.map.filter((el) => el.id == item)[0]
+      if (finded == undefined) finded = this.map.filter((el) => el.name == item)[0]
+      return finded;
+    } else return this.map.filter((el) => el.item == item)[0]
   }
-
 }
 // Объект item'ов
 var Items = new Constr_Items_Grid()
@@ -260,4 +282,50 @@ function vectorLength(aX, aY, bX, bY) {
   let sqr = (a) => a * a;
   return Math.ceil(Math.sqrt(sqr(aX - bX) + sqr(aY - bY)))
 }
-//function isIn(block)
+// Конвертация HEX в RGB
+function hex2rgb(c) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(c);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+// Конвертация RGB в HSL
+function rgb2hsl(r, g, b){
+    r = r / 255;
+    g = g / 255;
+    b = b / 255;
+ 
+    var maxColor = Math.max(r,g,b);
+    var minColor = Math.min(r,g,b);
+    //Calculate L:
+    var L = (maxColor + minColor) / 2 ;
+    var S = 0;
+    var H = 0;
+    if(maxColor != minColor){
+        //Calculate S:
+        if(L < 0.5){
+            S = (maxColor - minColor) / (maxColor + minColor);
+        }else{
+            S = (maxColor - minColor) / (2.0 - maxColor - minColor);
+        }
+        //Calculate H:
+        if(r == maxColor){
+            H = (g-b) / (maxColor - minColor);
+        }else if(g == maxColor){
+            H = 2.0 + (b - r) / (maxColor - minColor);
+        }else{
+            H = 4.0 + (r - g) / (maxColor - minColor);
+        }
+    }
+ 
+    L = L * 100;
+    S = S * 100;
+    H = H * 60;
+    if(H<0){
+        H += 360;
+    }
+    
+    return [H, S, L];
+}

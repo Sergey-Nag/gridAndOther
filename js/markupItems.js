@@ -5,7 +5,7 @@ const Doc = document;
 // Строка
 function returnStringMarkup(data) {
   let wrapp = createEl('div.item_grid_wrapp.one[connect="' + data + '"]');
-  let settingsButt = createEl('div.settings[connect="' + data + '"]');
+  let settingsButt = createEl('div.settings.hidden[connect="' + data + '"]');
   let item = createEl('div.item_grid_block[connect="' + data + '"]');
   let textWrapp = createEl('div.items_wrapp[connect="' + data + '"]');
 
@@ -26,7 +26,7 @@ function returnStringMarkup(data) {
 // Число
 function returnNumberMarkup(data) {
   let wrapp = createEl('div.item_grid_wrapp.one[connect="' + data + '"]');
-  let settingsButt = createEl('div.settings[connect="' + data + '"]');
+  let settingsButt = createEl('div.settings.hidden[connect="' + data + '"]');
   let item = createEl('div.item_grid_block[connect="' + data + '"]');
   let textWrapp = createEl('div.items_wrapp[connect="' + data + '"]');
 
@@ -47,7 +47,7 @@ function returnNumberMarkup(data) {
 // Boolean
 function returnBoolMarkup(data) {
   let wrapp = createEl('div.item_grid_wrapp.one[connect="' + data + '"]');
-  let settingsButt = createEl('div.settings[connect="' + data + '"]');
+  let settingsButt = createEl('div.settings.hidden[connect="' + data + '"]');
   let item = createEl('div.item_grid_block[connect="' + data + '"]');
   let textWrapp = createEl('div.items_wrapp[connect="' + data + '"][style="padding-top:2px;padding-bottom:1px"]');
 
