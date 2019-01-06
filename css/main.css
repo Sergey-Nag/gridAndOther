@@ -199,3 +199,26 @@ main {
 .warn {
   border-color: #ffcc20!important;
 }
+.trash_wrapp {
+  margin: 0 auto;
+  width: 30px;
+}
+#trash {
+  cursor: pointer;
+  position: absolute;
+  top: 50px;
+  border-radius: 25px;
+  border: 1px solid;
+  width: 35px;
+  height: 35px;
+  background: url(../icons/rubbish.png) no-repeat center;
+  background-size: 21px;
+  opacity: 1;
+}
+#trash.muffle {
+  opacity: .6;
+}
+#trash:hover {
+  opacity: 1;
+  transform: scale(1.1)
+}

@@ -191,16 +191,18 @@ class Constr_Items_Grid {
     }
   }
   focusItem(item) {
-    this.removeFocus()
-    this.item = item
-    this.item.classList.add('focus');
+    if (!this.item) {
+      this.removeFocus()
+      this.item = item
+      this.item.classList.add('focus');
 
-    let settings = this.item.children[0].children[0].children[0]
-    settings.addEventListener('click', function () {
-      if (ITEM_controlls.classList.contains('up')) activeItemControlls(item.id,'down')
-    })
-    settings.classList.remove('hidden')
+      let settings = this.item.children[0].children[0].children[0]
+      settings.addEventListener('click', function () {
+        if (ITEM_controlls.classList.contains('up')) activeItemControlls(item.id, 'down')
+      })
+      settings.classList.remove('hidden')
 
+    }
   }
   removeFocus() {
     if (this.item) {
@@ -265,10 +267,23 @@ class Constr_Items_Grid {
   }
   searchInMap(item) {
     if (typeof item == 'string') {
-      let finded = this.map.filter((el) => el.id == item)[0]
-      if (finded == undefined) finded = this.map.filter((el) => el.name == item)[0]
+      let finded = this.map.filter((el, i) => el.id == item)[0]
+      if (finded == undefined) finded = this.map.filter((el, i) => el.name == item)[0]
       return finded;
-    } else return this.map.filter((el) => el.item == item)[0]
+    } else return this.map.filter((el, i) => el.item == item)[0]
+  }
+  deleteItem() {
+    if (this.item) {
+      let finded = this.searchInMap(this.item.id)
+      let index = this.map.findIndex((el) => el.id == finded.id)
+      if (index >= 0) {
+        this.map.splice(index, 1);
+        GRID.removeChild(Items.item)
+
+        activeItemControlls(this.item, 'up')
+        Items.item = false
+      }
+    }
   }
 }
 // Объект item'ов
@@ -292,40 +307,40 @@ function hex2rgb(c) {
   } : null;
 }
 // Конвертация RGB в HSL
-function rgb2hsl(r, g, b){
-    r = r / 255;
-    g = g / 255;
-    b = b / 255;
- 
-    var maxColor = Math.max(r,g,b);
-    var minColor = Math.min(r,g,b);
-    //Calculate L:
-    var L = (maxColor + minColor) / 2 ;
-    var S = 0;
-    var H = 0;
-    if(maxColor != minColor){
-        //Calculate S:
-        if(L < 0.5){
-            S = (maxColor - minColor) / (maxColor + minColor);
-        }else{
-            S = (maxColor - minColor) / (2.0 - maxColor - minColor);
-        }
-        //Calculate H:
-        if(r == maxColor){
-            H = (g-b) / (maxColor - minColor);
-        }else if(g == maxColor){
-            H = 2.0 + (b - r) / (maxColor - minColor);
-        }else{
-            H = 4.0 + (r - g) / (maxColor - minColor);
-        }
+function rgb2hsl(r, g, b) {
+  r = r / 255;
+  g = g / 255;
+  b = b / 255;
+
+  var maxColor = Math.max(r, g, b);
+  var minColor = Math.min(r, g, b);
+  //Calculate L:
+  var L = (maxColor + minColor) / 2;
+  var S = 0;
+  var H = 0;
+  if (maxColor != minColor) {
+    //Calculate S:
+    if (L < 0.5) {
+      S = (maxColor - minColor) / (maxColor + minColor);
+    } else {
+      S = (maxColor - minColor) / (2.0 - maxColor - minColor);
     }
- 
-    L = L * 100;
-    S = S * 100;
-    H = H * 60;
-    if(H<0){
-        H += 360;
+    //Calculate H:
+    if (r == maxColor) {
+      H = (g - b) / (maxColor - minColor);
+    } else if (g == maxColor) {
+      H = 2.0 + (b - r) / (maxColor - minColor);
+    } else {
+      H = 4.0 + (r - g) / (maxColor - minColor);
     }
-    
-    return [H, S, L];
+  }
+
+  L = L * 100;
+  S = S * 100;
+  H = H * 60;
+  if (H < 0) {
+    H += 360;
+  }
+
+  return [H, S, L];
 }

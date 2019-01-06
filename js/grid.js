@@ -12,25 +12,49 @@ function itemControlls() {
 }
 
 function activeItemControlls(id, dir) {
-  let varNameInput = Doc.getElementById('input_var_name')
-  let varColorInput = Doc.getElementById('input_block_color')
+  let varNameInput = Doc.getElementById('input_var_name');
+  let varColorInput = Doc.getElementById('input_block_color');
+  let trash = Doc.getElementById('trash');
   if (dir == 'down') {
     let finded = Items.searchInMap(id)
     varNameInput.value = finded.name
-    varColorInput.value = finded.color
+    if (finded.color !== '') varColorInput.value = finded.color
+    else varColorInput.value = '#ffffff';
     varNameInput.addEventListener('keyup', inputTextListenner)
     varColorInput.addEventListener('input', inputColorListenner)
-
-
+    trash.addEventListener('click', deleteItem)
+    trash.addEventListener('mouseup', deleteDraggbleItem)
 
     ITEM_controlls.classList.remove('up')
     ITEM_controlls.classList.add('down')
   } else {
     varNameInput.removeEventListener('keyup', inputTextListenner, false)
     varColorInput.removeEventListener('input', inputColorListenner, false)
+    trash.removeEventListener('click', deleteItem, false)
+    trash.removeEventListener('mouseup', deleteDraggbleItem, false)
+
     varNameInput.classList.remove('warn')
     ITEM_controlls.classList.remove('down')
     ITEM_controlls.classList.add('up')
+  }
+}
+
+
+function deleteDraggbleItem(e) {
+  if (Items.isDrag) {
+    deleteItem('1')
+  }
+}
+// Удаление элемента
+function deleteItem(e) {
+  let itemName = (Items.item.hasAttribute('name'))? Items.item.getAttribute('name'):Items.item.getAttribute('data-method');
+  var isDelete = confirm('Удалить елемент '+itemName+'?');
+  if (isDelete == null) {
+    alert(isDelete);
+  } else if (isDelete) {
+    Items.deleteItem()
+  } else {
+    if (e == '1') activeItemControlls(Items.item, 'up')
   }
 }
 
@@ -38,10 +62,10 @@ function inputColorListenner(e) {
   let item = Items.item
   let finded = Items.searchInMap(item.id)
   finded.color = this.value
-  
+
   let rgb = hex2rgb(this.value)
   let hsl = rgb2hsl(rgb.r, rgb.g, rgb.b);
-  
+
   item.style.backgroundColor = this.value;
   if (hsl[2] < 40) item.classList.add('lightText')
   else item.classList.remove('lightText')
@@ -52,7 +76,6 @@ function inputTextListenner(e) {
   let item = Items.item
   let finded = Items.searchInMap(item.id)
 
-  console.log(this, finded)
   if (this.value !== '') {
 
     if (/[a-z]/gi.test(this.value) && !/\W/.test(this.value)) {

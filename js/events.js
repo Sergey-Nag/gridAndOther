@@ -40,6 +40,7 @@ Doc.onmousemove = (e) => {
   Mouse.target = e.target
 
   if (Items.item) {
+    // Перетаскивание элемента на сетке
     if (Mouse.target.nodeName == 'ITEM' && Mouse.target.id == Items.item.id) {
       Items.item.classList.add('hoverTite')
       if (Mouse.down) {
@@ -54,6 +55,10 @@ Doc.onmousemove = (e) => {
 
     if (Items.isDrag) {
       moveItemOnGrid()
+      if (Mouse.target.id === 'trash') {
+        Items.item.style.transform = 'scale(0.6)'
+      } else Items.item.style.transform = 'none'
+
     } else {
       Items.item.classList.remove('ghost')
     }
@@ -64,8 +69,9 @@ Doc.onmousemove = (e) => {
     Doc.body.style.cursor = 'grabbing'
   } else Doc.body.style.cursor = 'default'
 
-  if (Mouse.down && Avatar.focus) moveAvatar()
-  else {
+  if (Mouse.down && Avatar.focus) {
+    moveAvatar()
+  } else {
     if (Mouse.isIn(MAIN_b)) {
       Items.dropToGrid()
     }
@@ -84,9 +90,9 @@ Doc.onmouseup = (e) => {
   // Отмена выделения
   if (Items.item) {
     let targConnect = Mouse.target.getAttribute('connect')
-    if (targConnect !== Items.item.id && targConnect !== 'item_controlls' && Mouse.target.id !== Items.item.id) Items.removeFocus()
+    if (targConnect !== 'item_controlls' && targConnect !== Items.item.id && Mouse.target.id !== Items.item.id) Items.removeFocus()
   }
-  
+
 }
 
 

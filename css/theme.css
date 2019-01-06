@@ -211,6 +211,10 @@ item.list_item.on_grid:hover {
   z-index: 100;
 }
 
+item.list_item.on_grid.z-upper {
+  z-index: 1000;
+}
+
 item.list_item.on_grid::before {
   content: none
 }
