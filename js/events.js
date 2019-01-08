@@ -42,6 +42,12 @@ Doc.onmousemove = (e) => {
   Mouse.y = e.pageY
   Mouse.target = e.target
 
+  if (Items.curve) {
+    if (Mouse.down) {
+      if (Mouse.holdVector() > 6) moveCurve()
+    } else removeCurve()
+  }
+
   if (Items.item) {
     // Перетаскивание элемента на сетке
     if (Mouse.target.nodeName == 'ITEM' && Mouse.target.id == Items.item.id && !Items.curve) {
@@ -55,13 +61,11 @@ Doc.onmousemove = (e) => {
       Items.item.classList.remove('hoverTite')
     }
 
-
     if (Items.isDrag) {
       moveItemOnGrid()
       if (Mouse.target.id === 'trash') {
         Items.item.style.transform = 'scale(0.6)'
       } else Items.item.style.transform = 'none'
-
     } else {
       Items.item.classList.remove('ghost')
     }
@@ -69,11 +73,6 @@ Doc.onmousemove = (e) => {
   }
 
 
-  if (Items.curve) {
-    if (Mouse.down) {
-      moveCurve()
-    } else removeCurve()
-  }
 
   if (GridMouse.down && !Items.item) {
     moveGrid()
@@ -88,7 +87,6 @@ Doc.onmousemove = (e) => {
     }
     removeAvatar()
   }
-  //  console.log(vectorLength(Mouse.tapX, Mouse.tapY, Mouse.x, Mouse.y))
 }
 
 /*------------------- MOUSE UP ------------------*/

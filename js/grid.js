@@ -101,7 +101,9 @@ function drawLines() {
 
   for (let i = 0; i < X; i++) Lines.add('X')
   for (let i = 0; i < Y; i++) Lines.add('Y')
-
+  
+  SVG_map.style.height = GRID.offsetHeight+'px'
+  SVG_map.style.width = GRID.offsetWidth+'px'
 }
 
 // Перемещение сетки

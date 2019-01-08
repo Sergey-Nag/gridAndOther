@@ -102,6 +102,11 @@ textarea.theme {
   background-color: white;
 }
 
+.theme.connect.active {
+  padding: 2px;
+  background: #3beb9a !important;
+}
+
 .theme.connect[connect*="TelegramBot"][connect-method="input"] {
   bottom: 1px;
 }
@@ -275,7 +280,7 @@ item.list_item.on_grid .item_grid_wrapp {
 }
 
 item.list_item.on_grid .item_grid_wrapp.one {
-/*
+  /*
   grid-template-columns: 100%;
   grid-template-rows: 100%;
 */
@@ -295,11 +300,11 @@ item.list_item.on_grid .item_grid_wrapp .item_grid_block.centerBlock {
   align-self: center;
 }
 
-item.list_item.on_grid .item_grid_wrapp.splO .item_grid_block:first-child{
+item.list_item.on_grid .item_grid_wrapp.splO .item_grid_block:first-child {
   grid-column-start: span 2;
 }
 
-item.list_item.on_grid .item_grid_wrapp.splT .item_grid_block:last-child{
+item.list_item.on_grid .item_grid_wrapp.splT .item_grid_block:last-child {
   grid-row: 1 / 3;
 }
 
@@ -387,7 +392,7 @@ item.list_item[data-method="Bot"] {
   background-color: #5682a3;
 }
 
-item.list_item[data-method="Bot"] select{
+item.list_item[data-method="Bot"] select {
   background-color: #a0d5fb;
 }
 
@@ -468,12 +473,13 @@ item.list_item[for="string"] {
 /* ---------- ---------- ---------- end COLORS ---------- ---------- ---------- */
 
 
-.curvePath {
-/*  position: absolute;*/
-}
-.output_line {
+.mainSvg {
   position: absolute;
-  z-index: 1000;
+  top: 0;
+  left: 0;
+}
+
+.output_line {
   stroke: #3beb9a;
   stroke-width: 4px;
   stroke-linecap: round;

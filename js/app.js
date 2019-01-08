@@ -144,32 +144,44 @@ function removeGridGhost() {
 }
 
 function startDrawCurve(item, output) {
-  let wrapp = createEl('div.curvePath');
-  let svg = createEl('svg[width="100"][height="100"]')
-  let line = createEl('line.output_line[x1="0"][y1="0"]')
-  svg.appendChild(line)
-  wrapp.appendChild(svg)
-  Items.curve = line
+  let line = Doc.createElementNS('http://www.w3.org/2000/svg', 'line');
+  
+  line.classList.add('output_line')
+  let startX = item.offsetLeft + output.offsetLeft + 8
+  let startY = item.offsetTop + output.offsetTop + 8
 
-  output.appendChild(wrapp)
+  line.setAttribute('x1', startX)
+  line.setAttribute('y1', startY)
+  line.setAttribute('from', item.id)
+  line.setAttribute('shpt', output.getAttribute('shpt'))
+
+  output.classList.add('active')
+  Items.curve = line
+  SVG_map.appendChild(line)
 }
 
 function moveCurve() {
   if (Items.curve) {
     let line = Items.curve
-//    line.y2 = Mouse.y
-    line.setAttribute('x2', Mouse.holdVector())
-    line.setAttribute('y2', '25')
-    console.log(line.getAttribute('x2'))
+
+    let moveX = Mouse.x + MAIN_b.scrollLeft - MAIN_b.offsetLeft;
+    let moveY = Mouse.y + MAIN_b.scrollTop - MAIN_b.offsetTop;
+
+    line.setAttribute('x2', moveX)
+    line.setAttribute('y2', moveY)
   }
 }
 
 function removeCurve() {
   if (Items.curve) {
-    console.log('s>', Items.curve)
-    let curvePath = Items.curve.parentNode.parentNode
-//    curvePath.parentNode.removeChild(curvePath)
-    console.log(curvePath)
+    let outputActive = GRID.querySelector('#'+Items.curve.getAttribute('from')).querySelector('.connect.active')
+    outputActive.classList.remove('active')
+    let curvePath = Items.curve
+    SVG_map.removeChild(curvePath)
     Items.curve = false
   }
+}
+
+function pinCurve() {
+  
 }

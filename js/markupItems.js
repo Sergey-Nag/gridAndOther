@@ -98,7 +98,7 @@ function returnNewBotMarkup(data) {
     frth: createEl('input.theme[style="color: white;width:48px"][type="number"][placeholder=""][min="1"][max="100"][value="100"][connect="' + data + '"]')
   }
 
-  let DOut = createEl('div.theme.connect[connect-method="output"][connect="' + data + '"][title="Object →"]');
+  let DOut = createEl('div.theme.connect[connect-method="output"][shpt="object"][connect="' + data + '"][title="Object →"]');
   for (block in updates) getUpdates.appendChild(updates[block])
 
   dataBlock.appendChild(getUpdates)

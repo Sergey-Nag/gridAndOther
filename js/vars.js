@@ -4,6 +4,8 @@ const MAIN = Doc.querySelector('main');
 const LEFT_b = Doc.getElementsByClassName('left_b')[0];
 // id grid
 const GRID = Doc.getElementById('grid');
+// id mainSVG
+const SVG_map = Doc.getElementById('mainSVG');
 // class main_b
 const MAIN_b = Doc.getElementsByClassName('main_b')[0];
 // id item_controlls
@@ -209,7 +211,7 @@ class Constr_Items_Grid {
       let output = this.item.querySelector('div.connect[connect-method="output"]')
       output.onmousedown = function (e) {
         if (e.which == 1) {
-          if (Mouse.holdVector() > 3) {
+          if (Mouse.holdVector() > 3 && !Items.curve) {
             startDrawCurve(item, output)
           }
         }
