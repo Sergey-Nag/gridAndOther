@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
   <main>
     <div class="app_wrapp">
       <div class="left_b block">
@@ -28,6 +27,20 @@
             <item class="list_item" id="var_bool" type="min" data-method="bool"></item>
             <item class="list_item" id="var_object" type="min" data-method="object"></item>
             <item class="list_item" id="var_array" type="min" data-method="array"></item>
+          </div>
+        </div>
+        <div class="list_wrapp" id="telegram_items">
+          <div class="list_header">
+            <div class="line_h_wrapp">
+              <div class="line_header"></div>
+            </div>
+            <h5>Telegram</h5>
+            <div class="arrow_down"></div>
+          </div>
+          <div class="list_items">
+            <item class="list_item" id="TelegramBot" type="full" pfx="new" data-method="Bot"></item>
+            <item class="list_item" id="incoming" type="full" pfx="on" data-method="message"></item>
+            <item class="list_item" id="incoming" type="full" pfx="on" data-method="error"></item>
           </div>
         </div>
         <div class="list_wrapp">
@@ -93,6 +106,7 @@
           </div>
           <div class="list_items">
             <item class="list_item" id="class_Data" type="full" pfx="new" data-method="Data"></item>
+            <item class="list_item" id="class_Data" type="full" pfx="new" data-method="Data"></item>
             <item class="list_item" id="class_User" type="full" pfx="new" data-method="User"></item>
             <item class="list_item" id="class_Promise" type="full" pfx="new" data-method="Promise"></item>
           </div>
@@ -123,9 +137,9 @@
               </div>
             </div>
           </div>
-        <div class="trash_wrapp" connect="item_controlls">
-          <div id="trash" class="muffle" connect="item_controlls"></div>
-        </div>
+          <div class="trash_wrapp" connect="item_controlls">
+            <div id="trash" class="muffle" connect="item_controlls"></div>
+          </div>
         </div>
         <div class="grid" id="grid">
           <div class="X_lines"></div>

@@ -81,10 +81,10 @@ function moveItemOnGrid() {
     y: Mouse.y - Items.itemDif.y + MAIN_b.scrollTop - MAIN_b.offsetTop
   })
   search.then((res) => {
-    Items.item.classList.add('ghost','hoverTite')
+    Items.item.classList.add('ghost', 'hoverTite')
     Items.position(res.posX, res.posY)
   }).catch((rej) => {
-    Items.item.classList.remove('ghost','hoverTite')
+    Items.item.classList.remove('ghost', 'hoverTite')
   })
 }
 
@@ -140,5 +140,36 @@ function removeGridGhost() {
   if (Avatar.grid) {
     GRID.removeChild(Avatar.grid)
     Avatar.grid = false
+  }
+}
+
+function startDrawCurve(item, output) {
+  let wrapp = createEl('div.curvePath');
+  let svg = createEl('svg[width="100"][height="100"]')
+  let line = createEl('line.output_line[x1="0"][y1="0"]')
+  svg.appendChild(line)
+  wrapp.appendChild(svg)
+  Items.curve = line
+
+  output.appendChild(wrapp)
+}
+
+function moveCurve() {
+  if (Items.curve) {
+    let line = Items.curve
+//    line.y2 = Mouse.y
+    line.setAttribute('x2', Mouse.holdVector())
+    line.setAttribute('y2', '25')
+    console.log(line.getAttribute('x2'))
+  }
+}
+
+function removeCurve() {
+  if (Items.curve) {
+    console.log('s>', Items.curve)
+    let curvePath = Items.curve.parentNode.parentNode
+//    curvePath.parentNode.removeChild(curvePath)
+    console.log(curvePath)
+    Items.curve = false
   }
 }

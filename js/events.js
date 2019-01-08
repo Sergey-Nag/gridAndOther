@@ -31,6 +31,9 @@ GRID.onmousedown = (e) => {
   GridMouse.SX = MAIN_b.scrollLeft
   GridMouse.SY = MAIN_b.scrollTop
   GridMouse.down = true
+
+  if (Items.item && !Items.curve) return true
+  else return false
 }
 
 /*------------------- MOUSE MOVE ------------------*/
@@ -41,7 +44,7 @@ Doc.onmousemove = (e) => {
 
   if (Items.item) {
     // Перетаскивание элемента на сетке
-    if (Mouse.target.nodeName == 'ITEM' && Mouse.target.id == Items.item.id) {
+    if (Mouse.target.nodeName == 'ITEM' && Mouse.target.id == Items.item.id && !Items.curve) {
       Items.item.classList.add('hoverTite')
       if (Mouse.down) {
         if (Mouse.holdVector() > 3 && e.offsetY < 12) {
@@ -62,6 +65,14 @@ Doc.onmousemove = (e) => {
     } else {
       Items.item.classList.remove('ghost')
     }
+
+  }
+
+
+  if (Items.curve) {
+    if (Mouse.down) {
+      moveCurve()
+    } else removeCurve()
   }
 
   if (GridMouse.down && !Items.item) {

@@ -147,6 +147,7 @@ class Constr_Items_Grid {
     }
     this.ghost = false
     this.item = false
+    this.curve = false
     this.config = {
       string: {
         type: 'variable',
@@ -162,6 +163,11 @@ class Constr_Items_Grid {
         type: 'variable',
         data_type: 'boolean',
         markup: returnBoolMarkup
+      },
+      Bot: {
+        type: 'telegram',
+        data_type: 'class',
+        markup: returnNewBotMarkup
       }
     }
   }
@@ -196,17 +202,25 @@ class Constr_Items_Grid {
       this.item = item
       this.item.classList.add('focus');
 
-      let settings = this.item.children[0].children[0].children[0]
+      let settings = this.item.getElementsByClassName('settings')[0];
       settings.addEventListener('click', function () {
         if (ITEM_controlls.classList.contains('up')) activeItemControlls(item.id, 'down')
       })
+      let output = this.item.querySelector('div.connect[connect-method="output"]')
+      output.onmousedown = function (e) {
+        if (e.which == 1) {
+          if (Mouse.holdVector() > 3) {
+            startDrawCurve(item, output)
+          }
+        }
+      }
       settings.classList.remove('hidden')
 
     }
   }
   removeFocus() {
     if (this.item) {
-      let settings = this.item.children[0].children[0].children[0]
+      let settings = this.item.getElementsByClassName('settings')[0];
       settings.classList.add('hidden')
 
       this.item.classList.remove('focus')
